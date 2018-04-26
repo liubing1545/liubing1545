@@ -6,15 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://liubing.com">
-  <title>Tag: grep | Bad Seeds</title>
+  <title>利用AppVeyor做GithubIO的CI | Bad Seeds</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Bad Seeds">
-<meta property="og:url" content="http://liubing.com/tags/grep/index.html">
+  <meta name="description" content="建立两个仓库 我基于hexo搭建的github.io，在更换电脑时无法随意的提交blog。（因每个机器都需要部署node+hexo的环境） 于是，我将我的github.io建立两个仓库。  master仓库（hexo generate后生成的html等文件） hexo仓库（原始文件，包含md文档及主题等）并将hexo仓库设置为这个repo的主仓库。  AppVeyorappveyor是支持wind">
+<meta name="keywords" content="持续集成,CI,hexo,持续部署,AppVeyor,github">
+<meta property="og:type" content="article">
+<meta property="og:title" content="利用AppVeyor做GithubIO的CI">
+<meta property="og:url" content="http://liubing.com/2018/04/24/利用AppVeyor做GithubIO的CI/index.html">
 <meta property="og:site_name" content="Bad Seeds">
+<meta property="og:description" content="建立两个仓库 我基于hexo搭建的github.io，在更换电脑时无法随意的提交blog。（因每个机器都需要部署node+hexo的环境） 于是，我将我的github.io建立两个仓库。  master仓库（hexo generate后生成的html等文件） hexo仓库（原始文件，包含md文档及主题等）并将hexo仓库设置为这个repo的主仓库。  AppVeyorappveyor是支持wind">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://obksgg9lx.bkt.clouddn.com/appveyor-setting1.png">
+<meta property="og:image" content="http://obksgg9lx.bkt.clouddn.com/appveyor-setting2.png">
+<meta property="og:image" content="http://obksgg9lx.bkt.clouddn.com/appveyor-setting3.png">
+<meta property="og:image" content="http://obksgg9lx.bkt.clouddn.com/github-access-token.png">
+<meta property="og:image" content="http://obksgg9lx.bkt.clouddn.com/github-webhook.png">
+<meta property="og:updated_time" content="2018-04-26T09:41:00.541Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bad Seeds">
+<meta name="twitter:title" content="利用AppVeyor做GithubIO的CI">
+<meta name="twitter:description" content="建立两个仓库 我基于hexo搭建的github.io，在更换电脑时无法随意的提交blog。（因每个机器都需要部署node+hexo的环境） 于是，我将我的github.io建立两个仓库。  master仓库（hexo generate后生成的html等文件） hexo仓库（原始文件，包含md文档及主题等）并将hexo仓库设置为这个repo的主仓库。  AppVeyorappveyor是支持wind">
+<meta name="twitter:image" content="http://obksgg9lx.bkt.clouddn.com/appveyor-setting1.png">
   
     <link rel="alternative" href="/atom.xml" title="Bad Seeds" type="application/atom+xml">
   
@@ -154,68 +165,192 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-利用AppVeyor做GithubIO的CI" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/06/08/mac下批量替换文本/" class="archive-article-date">
-  	<time datetime="2016-06-08T04:02:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-08</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/06/08/mac下批量替换文本/">mac下批量替换文本</a>
+    <h1 class="article-title" itemprop="name">
+      利用AppVeyor做GithubIO的CI
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/04/24/利用AppVeyor做GithubIO的CI/" class="archive-article-date">
+  	<time datetime="2018-04-24T03:45:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="建立两个仓库"><a href="#建立两个仓库" class="headerlink" title="建立两个仓库"></a>建立两个仓库</h2><p> 我基于hexo搭建的github.io，在更换电脑时无法随意的提交blog。（因每个机器都需要部署node+hexo的环境）<br> 于是，我将我的github.io建立两个仓库。</p>
+<ol>
+<li>master仓库（hexo generate后生成的html等文件）</li>
+<li>hexo仓库（原始文件，包含md文档及主题等）<br>并将hexo仓库设置为这个repo的主仓库。</li>
+</ol>
+<h2 id="AppVeyor"><a href="#AppVeyor" class="headerlink" title="AppVeyor"></a>AppVeyor</h2><p><a href="https://www.appveyor.com/" target="_blank" rel="noopener">appveyor</a>是支持windows OS做CI的持续集成工具，可以使用GitHub账号登陆。绑定我的github.io项目。<br><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-setting1.png" alt="appveyor-setting1"><br><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-setting2.png" alt="appveyor-setting2"><br><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-setting3.png" alt="appveyor-setting3"><br><img src="http://obksgg9lx.bkt.clouddn.com/github-access-token.png" alt="github-access-token"><br><img src="http://obksgg9lx.bkt.clouddn.com/github-webhook.png" alt="github-webhook"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">mac</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续集成</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">sed</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CI</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">grep</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续部署</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AppVeyor</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://liubing.com/2018/04/24/利用AppVeyor做GithubIO的CI/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/04/24/为Jupyter Notebook添加目录/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">为Jupyter Notebook添加目录</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -238,9 +373,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
