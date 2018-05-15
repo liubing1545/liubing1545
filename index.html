@@ -156,6 +156,96 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-celery介绍" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/10/celery介绍/">celery介绍</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/10/celery介绍/" class="archive-article-date">
+  	<time datetime="2018-05-10T06:47:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-10</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Celery架构设计"><a href="#Celery架构设计" class="headerlink" title="Celery架构设计"></a>Celery架构设计</h2><p>Celery是一个用python编写的分布式的任务调度模块，它有着简明的 API，并且有丰富的扩展性，适合用于构建分布式的 Web 服务。celery的架构包括三个部分：消息中间件（message broker），任务执行单元（worker）和任务执行结果的存储（task result store）。</p>
+<h4 id="消息中间件"><a href="#消息中间件" class="headerlink" title="消息中间件"></a>消息中间件</h4><p>celery本身不提供消息服务，但可以和第三方提供的消息中间件（<strong>RabbitMQ</strong>,<strong>Redis</strong>等）集成。</p>
+<h4 id="任务执行单元"><a href="#任务执行单元" class="headerlink" title="任务执行单元"></a>任务执行单元</h4><p>worker是celery提供的任务执行单元，worker并发的运行在分布式的系统节点中。</p>
+<h4 id="任务结果存储"><a href="#任务结果存储" class="headerlink" title="任务结果存储"></a>任务结果存储</h4><p>task result store用来存储worker执行的任务的结果，celery支持以不同方式存储任务的结果（<strong>AMQP</strong>,<strong>Redis</strong>,<strong>MongoDB</strong>）。</p>
+<p>另外，celery还支持不同的并发（<strong>Prefork</strong>,<strong>Eventlet</strong>,<strong>gevent</strong>,<strong>threads</strong>）和序列化的手段（<strong>pickle</strong>,<strong>json</strong>,<strong>yaml</strong>等）。</p>
+<h2 id="概图"><a href="#概图" class="headerlink" title="概图"></a>概图</h2><p><img src="http://obksgg9lx.bkt.clouddn.com/celery.png" alt="celery"></p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install celery</span><br><span class="line">pip install redis</span><br></pre></td></tr></table></figure>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h4 id="消息中间件redis的配置-及任务结果存储"><a href="#消息中间件redis的配置-及任务结果存储" class="headerlink" title="消息中间件redis的配置,及任务结果存储"></a>消息中间件redis的配置,及任务结果存储</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CELERY_BROKER_URL = <span class="string">'redis://localhost:6379/0'</span></span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">'redis://localhost:6379/0'</span></span><br><span class="line"><span class="comment"># 使用 update设置多个celery的参数</span></span><br><span class="line">celery.conf.update(app.config)</span><br></pre></td></tr></table></figure>
+<h4 id="消费者task"><a href="#消费者task" class="headerlink" title="消费者task"></a>消费者task</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@celery.task(bind=True)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">long_task</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># 执行耗费资源的算法</span></span><br><span class="line">    algorithm.reset_data()</span><br><span class="line"></span><br><span class="line">    app = create_app(os.getenv(<span class="string">'FLASK_CONFIG'</span>) <span class="keyword">or</span> <span class="string">'default'</span>)</span><br><span class="line">    <span class="keyword">with</span> app.app_context():</span><br><span class="line">        front_data = algorithm.run_search(algorithm.TestData.requirement, algorithm.TestData.disabled_devices)</span><br><span class="line">        <span class="keyword">import</span> json</span><br><span class="line">        </span><br><span class="line">        data = json.dumps(front_data)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">'current'</span>: <span class="number">100</span>, <span class="string">'total'</span>: <span class="number">100</span>, <span class="string">'status'</span>: <span class="string">'Task completed!'</span>, <span class="string">'result'</span>: data&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="通过task-apply-async将任务压入消息队列broker中"><a href="#通过task-apply-async将任务压入消息队列broker中" class="headerlink" title="通过task.apply_async将任务压入消息队列broker中"></a>通过task.apply_async将任务压入消息队列broker中</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@energy_island.route('/get_graph_data', methods=['POST'])</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_graph_data</span><span class="params">()</span>:</span></span><br><span class="line">    id = request.values.get(<span class="string">'id'</span>)</span><br><span class="line">    print(id)</span><br><span class="line"></span><br><span class="line">    task = tasks.long_task.apply_async()</span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;&#125;), <span class="number">202</span>, &#123;<span class="string">'Location'</span>: url_for(<span class="string">'energy_island.taskstatus'</span>, task_id=task.id)&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="使用backend异步获取结果task-AsyncResult"><a href="#使用backend异步获取结果task-AsyncResult" class="headerlink" title="使用backend异步获取结果task.AsyncResult"></a>使用backend异步获取结果task.AsyncResult</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@energy_island.route('/status/&lt;task_id&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">taskstatus</span><span class="params">(task_id)</span>:</span></span><br><span class="line">    task = tasks.long_task.AsyncResult(task_id)</span><br><span class="line">    <span class="keyword">if</span> task.state == <span class="string">'PENDING'</span>:</span><br><span class="line">        response = &#123;</span><br><span class="line">            <span class="string">'state'</span>: task.state,</span><br><span class="line">            <span class="string">'current'</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="string">'total'</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">'status'</span>: <span class="string">'Pending...'</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">elif</span> task.state != <span class="string">'FAILURE'</span>:</span><br><span class="line">        response = &#123;</span><br><span class="line">            <span class="string">'state'</span>: task.state,</span><br><span class="line">            <span class="string">'current'</span>: task.info.get(<span class="string">'current'</span>, <span class="number">0</span>),</span><br><span class="line">            <span class="string">'total'</span>: task.info.get(<span class="string">'total'</span>, <span class="number">1</span>),</span><br><span class="line">            <span class="string">'status'</span>: task.info.get(<span class="string">'status'</span>, <span class="string">' '</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'result'</span> <span class="keyword">in</span> task.info:</span><br><span class="line">            response[<span class="string">'result'</span>] = task.info[<span class="string">'result'</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        response = &#123;</span><br><span class="line">            <span class="string">'state'</span>: task.state,</span><br><span class="line">            <span class="string">'current'</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">'total'</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">'status'</span>: str(task.info),</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> jsonify(response)</span><br></pre></td></tr></table></figure>
+<h4 id="生产者get消费者完成的状态"><a href="#生产者get消费者完成的状态" class="headerlink" title="生产者get消费者完成的状态"></a>生产者get消费者完成的状态</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> update_progress = <span class="function"><span class="keyword">function</span>(<span class="params">status_url</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// send GET request to status URL</span></span><br><span class="line">    $.getJSON(status_url, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// update UI</span></span><br><span class="line">        percent = <span class="built_in">parseInt</span>(data[<span class="string">'current'</span>] * <span class="number">100</span> / data[<span class="string">'total'</span>]);</span><br><span class="line">        <span class="keyword">if</span> (data[<span class="string">'state'</span>] != <span class="string">'PENDING'</span> &amp;&amp; data[<span class="string">'state'</span>] != <span class="string">'PROGRESS'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">'result'</span> <span class="keyword">in</span> data) &#123;</span><br><span class="line"></span><br><span class="line">                setGraphDataRun(<span class="built_in">JSON</span>.parse(data[<span class="string">'result'</span>]), <span class="number">1</span>);</span><br><span class="line">                <span class="comment">// show result</span></span><br><span class="line">                alert(<span class="string">'result-liubing: '</span> + data[<span class="string">'result'</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                alert(<span class="string">'state-liubing: '</span> + data[<span class="string">'state'</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// rerun in 2 seconds</span></span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                update_progress(status_url);</span><br><span class="line">            &#125;, <span class="number">2000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="启动celery"><a href="#启动celery" class="headerlink" title="启动celery"></a>启动celery</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">celery -A app.celery worker -l info -P eventlet</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">celery</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">分布式</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/10/celery介绍/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-利用AppVeyor做GithubIO的CI" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -176,13 +266,12 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="建立两个仓库"><a href="#建立两个仓库" class="headerlink" title="建立两个仓库"></a>建立两个仓库</h2><p> 我基于hexo搭建的github.io，在更换电脑时无法随意的提交blog。（因每个机器都需要部署node+hexo的环境）<br> 于是，我将我的github.io建立两个仓库。</p>
-<ol>
+        <h2 id="建立两个仓库"><a href="#建立两个仓库" class="headerlink" title="建立两个仓库"></a>建立两个仓库</h2><p>我基于hexo搭建的github.io，在更换电脑时无法随意的提交blog。（因每个机器都需要部署node+hexo的环境）<br>于是，我将我的github.io建立两个仓库。</p>
+<ul>
 <li>master仓库（hexo generate后生成的html等文件）</li>
-<li><p>hexo仓库（原始文件，包含md文档及主题等）</p>
+<li>hexo仓库（原始文件，包含md文档及主题等）</li>
+</ul>
 <p>并将hexo仓库设置为这个repo的主仓库。</p>
-</li>
-</ol>
 <h2 id="AppVeyor"><a href="#AppVeyor" class="headerlink" title="AppVeyor"></a>AppVeyor</h2><p><a href="https://www.appveyor.com/" target="_blank" rel="noopener">appveyor</a>是支持windows OS做CI的持续集成工具，可以使用GitHub账号登陆。绑定我的github.io项目。</p>
 <h4 id="添加appveyor-yml到Source-Repo"><a href="#添加appveyor-yml到Source-Repo" class="headerlink" title="添加appveyor.yml到Source Repo"></a>添加appveyor.yml到Source Repo</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">clone_depth:</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line"><span class="attr">  access_token:</span></span><br><span class="line"><span class="attr">    secure:</span> <span class="string">[Your</span> <span class="string">Github</span> <span class="string">Access</span> <span class="string">Token]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="attr">  - ps:</span> <span class="string">Install-Product</span> <span class="string">node</span> <span class="number">6</span> <span class="comment">#因为我的hexo是3.71的版本，因此需要安装node 6</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">node</span> <span class="bullet">--version</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="bullet">--version</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="bullet">-g</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">build_script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line"></span><br><span class="line"><span class="attr">artifacts:</span></span><br><span class="line"><span class="attr">  - path:</span> <span class="string">public</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on_success:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">credential.helper</span> <span class="string">store</span></span><br><span class="line"><span class="attr">  - ps:</span> <span class="string">Add-Content</span> <span class="string">"$env:USERPROFILE\.git-credentials"</span> <span class="string">"https://$($env:access_token):x-oauth-basic@github.com`n"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.email</span> <span class="string">"%GIT_USER_EMAIL%"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.name</span> <span class="string">"%GIT_USER_NAME%"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">clone</span> <span class="bullet">--depth</span> <span class="number">5</span> <span class="bullet">-q</span> <span class="bullet">--branch=%TARGET_BRANCH%</span> <span class="string">%STATIC_SITE_REPO%</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">cd</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">del</span> <span class="string">*</span> <span class="string">/f</span> <span class="string">/q</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">for</span> <span class="string">/d</span> <span class="string">%%p</span> <span class="string">IN</span> <span class="string">(*)</span> <span class="string">do</span> <span class="string">rmdir</span> <span class="string">"%%p"</span> <span class="string">/s</span> <span class="string">/q</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">SETLOCAL</span> <span class="string">EnableDelayedExpansion</span> <span class="string">&amp;</span> <span class="string">robocopy</span> <span class="string">"%APPVEYOR_BUILD_FOLDER%\public"</span> <span class="string">"%TEMP%\static-site"</span> <span class="string">/e</span> <span class="string">&amp;</span> <span class="string">IF</span> <span class="string">!ERRORLEVEL!</span> <span class="string">EQU</span> <span class="number">1</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(IF</span> <span class="string">!ERRORLEVEL!</span> <span class="string">EQU</span> <span class="number">3</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(exit</span> <span class="number">1</span><span class="string">))</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">add</span> <span class="bullet">-A</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">commit</span> <span class="bullet">-m</span> <span class="string">"Update Static Site"</span> <span class="string">&amp;&amp;</span> <span class="string">git</span> <span class="string">push</span> <span class="string">origin</span> <span class="string">%TARGET_BRANCH%</span> <span class="string">&amp;&amp;</span> <span class="string">appveyor</span> <span class="string">AddMessage</span> <span class="string">"Static Site Updated"</span></span><br></pre></td></tr></table></figure>
 <p>在GitHub生成好Access Token之后，你需要到<a href="https://ci.appveyor.com/tools/encrypt" target="_blank" rel="noopener">AppVeyor加密页面</a>把Access Token加密之后再替换[Your GitHub Access Token]。<br><img src="http://obksgg9lx.bkt.clouddn.com/github-access-token.png" alt="github-access-token"><br><img src="http://obksgg9lx.bkt.clouddn.com/github-webhook.png" alt="github-webhook"></p>
@@ -976,91 +1065,6 @@
 
 
   
-    <article id="post-anaconda安装tensorflow" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/08/29/anaconda安装tensorflow/">anaconda安装tensorflow</a>
-    </h1>
-  
-
-        
-        <a href="/2017/08/29/anaconda安装tensorflow/" class="archive-article-date">
-  	<time datetime="2017-08-29T03:30:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-29</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="下载anaconda"><a href="#下载anaconda" class="headerlink" title="下载anaconda"></a>下载anaconda</h2><p>anaconda是一个用于科学计算的python发行版，支持linux、mac、windows系统。<br><a href="https://www.continuum.io/downloads" target="_blank" rel="noopener">anaconda官方下载地址</a><br>我下载的版本是python27的anaconda2-4.4.0-Windows-x86_64.exe    </p>
-<h2 id="创建python3的anaconda环境"><a href="#创建python3的anaconda环境" class="headerlink" title="创建python3的anaconda环境"></a>创建python3的anaconda环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n python3 python=3.5.2 anaconda</span><br></pre></td></tr></table></figure>
-<h2 id="安装tensorflow"><a href="#安装tensorflow" class="headerlink" title="安装tensorflow"></a>安装tensorflow</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看当前版本分支</span><br><span class="line">conda info -e</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 切换python3的环境</span><br><span class="line">activate python3</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 安装tensorflow</span><br><span class="line">conda install tensorflow</span><br></pre></td></tr></table></figure>
-<h2 id="启动spyder"><a href="#启动spyder" class="headerlink" title="启动spyder"></a>启动spyder</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 在python3的虚拟环境下</span><br><span class="line">spyder</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">anaconda</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">conda</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tensorflow</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/08/29/anaconda安装tensorflow/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1391,6 +1395,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">上下文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">celery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -156,6 +156,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-anaconda安装tensorflow" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/29/anaconda安装tensorflow/">anaconda安装tensorflow</a>
+    </h1>
+  
+
+        
+        <a href="/2017/08/29/anaconda安装tensorflow/" class="archive-article-date">
+  	<time datetime="2017-08-29T03:30:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-08-29</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="下载anaconda"><a href="#下载anaconda" class="headerlink" title="下载anaconda"></a>下载anaconda</h2><p>anaconda是一个用于科学计算的python发行版，支持linux、mac、windows系统。<br><a href="https://www.continuum.io/downloads" target="_blank" rel="noopener">anaconda官方下载地址</a><br>我下载的版本是python27的anaconda2-4.4.0-Windows-x86_64.exe    </p>
+<h2 id="创建python3的anaconda环境"><a href="#创建python3的anaconda环境" class="headerlink" title="创建python3的anaconda环境"></a>创建python3的anaconda环境</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n python3 python=3.5.2 anaconda</span><br></pre></td></tr></table></figure>
+<h2 id="安装tensorflow"><a href="#安装tensorflow" class="headerlink" title="安装tensorflow"></a>安装tensorflow</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 查看当前版本分支</span><br><span class="line">conda info -e</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 切换python3的环境</span><br><span class="line">activate python3</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 安装tensorflow</span><br><span class="line">conda install tensorflow</span><br></pre></td></tr></table></figure>
+<h2 id="启动spyder"><a href="#启动spyder" class="headerlink" title="启动spyder"></a>启动spyder</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 在python3的虚拟环境下</span><br><span class="line">spyder</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">anaconda</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">conda</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">tensorflow</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/08/29/anaconda安装tensorflow/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-docker-compose的使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -928,94 +1013,6 @@ bind = &apos;127.0.0.1:8000&apos;
 
 
   
-    <article id="post-docker部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/28/docker部署/">docker部署web环境</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/28/docker部署/" class="archive-article-date">
-  	<time datetime="2017-03-28T12:04:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="postgresql"><a href="#postgresql" class="headerlink" title="postgresql"></a>postgresql</h3><figure class="highlight crystal"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. docker pull sameersbn/postgresql</span><br><span class="line"><span class="number">2</span>. docker run --name=postgresql -itd --restart always \</span><br><span class="line">--publish <span class="number">5432</span>:<span class="number">5432</span> \</span><br><span class="line">--volume /opt/postgresql/<span class="symbol">data:</span>/var/<span class="class"><span class="keyword">lib</span>/<span class="title">postgresql</span> \</span></span><br><span class="line">--env <span class="string">'DB_USER=mymebyo_adm01'</span> --env <span class="string">'DB_PASS=mymebyo_adm01'</span> --env <span class="string">'DB_NAME=mymebyo'</span> \</span><br><span class="line">sameersbn/postgresql</span><br></pre></td></tr></table></figure>
-<h3 id="redis"><a href="#redis" class="headerlink" title="redis"></a>redis</h3><figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1. docker pull redis</span><br><span class="line">2. docker <span class="builtin-name">run</span> <span class="attribute">--name</span>=redis -p 6379:6379 -v /opt/redis/data:/data -d redis redis-server --appendonly <span class="literal">yes</span></span><br></pre></td></tr></table></figure>
-<p><strong>redis-server –appendonly yes</strong> :在容器执行redis-server启动命令，并打开redis持久化配置</p>
-<h3 id="java-web"><a href="#java-web" class="headerlink" title="java web"></a>java web</h3><figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1. docker pull java</span><br><span class="line">2. docker run -it <span class="params">--volume</span> <span class="string">/var/www</span>:<span class="string">/var/www</span> <span class="params">--publish</span> 8082<span class="function">:8080</span> <span class="params">--link</span> postgresql<span class="function">:mebyo</span> <span class="params">--link</span> redis<span class="function">:redis</span> java <span class="string">/bin/bash</span></span><br><span class="line">3. java -jar mebyo-1.0.0.jar</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">postgresql</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">redis</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">web</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/28/docker部署/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1346,6 +1343,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">上下文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">celery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
              
               <li class="article-tag-list-item">
