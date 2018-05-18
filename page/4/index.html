@@ -156,6 +156,107 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-react-native与webapi交互" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/08/react-native与webapi交互/">react native与webapi交互</a>
+    </h1>
+  
+
+        
+        <a href="/2016/08/08/react-native与webapi交互/" class="archive-article-date">
+  	<time datetime="2016-08-08T03:56:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>react native坑太大了！！！<br>既然跳进去了，就想办法填坑呗～</p>
+<h2 id="webapi"><a href="#webapi" class="headerlink" title="webapi"></a>webapi</h2><h4 id="本地开启webAPI"><a href="#本地开启webAPI" class="headerlink" title="本地开启webAPI"></a>本地开启webAPI</h4><p><img src="http://obksgg9lx.bkt.clouddn.com/webapi.png" alt="webapi"></p>
+<h4 id="curl测试webAPI"><a href="#curl测试webAPI" class="headerlink" title="curl测试webAPI"></a>curl测试webAPI</h4><p><img src="http://obksgg9lx.bkt.clouddn.com/getToken.png" alt="test webapi"></p>
+<h2 id="react-native如何debug"><a href="#react-native如何debug" class="headerlink" title="react native如何debug"></a>react native如何debug</h2><h4 id="command-d"><a href="#command-d" class="headerlink" title="command + d"></a>command + d</h4><p>在ios的simulator上，command+d调出菜单，选择Debug JS Remotely</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/debugJS.png" alt="debug">  </p>
+<h4 id="Runtime-is-not-ready-for-debugging"><a href="#Runtime-is-not-ready-for-debugging" class="headerlink" title="Runtime is not ready for debugging."></a>Runtime is not ready for debugging.</h4><p>如果报出该错，则需要下载chrome浏览器，mac自带的safari无法载入本地的reactJS文件。</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/debugging.png" alt="error"></p>
+<h4 id="Network-request-failed"><a href="#Network-request-failed" class="headerlink" title="Network request failed."></a>Network request failed.</h4><p>如果报出该错，需要配置xcode里对于http请求的设置。  </p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/networkRequestFail.png" alt="error"></p>
+<p>这个错误搞的我烦躁了一个周末，根本没有头绪。<br>首先，要确认RCTWebSocketExecutor.m文件中host = @”localhost”;</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/RCTWebSocketExecutor.png" alt="host"></p>
+<p>其次，要在plist的APP Transport Security Settings中添加Allow Arbitrary Loads为True。这个设置把request请求不仅仅局限于https安全模式，http也被允许了。</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/plist.png" alt="plist"></p>
+<h4 id="chrome-debug"><a href="#chrome-debug" class="headerlink" title="chrome debug"></a>chrome debug</h4><p>测试一下，与本地webapi的交互，在chrome浏览器下可以打断点，查看变量了。</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/chromeTool.png" alt="chrome"></p>
+<p>webapi的监听也收到了request。</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/requestForWebAPI.png" alt="webapi listen"></p>
+<h2 id="退出debug模式"><a href="#退出debug模式" class="headerlink" title="退出debug模式"></a>退出debug模式</h2><h4 id="command-d-1"><a href="#command-d-1" class="headerlink" title="command + d"></a>command + d</h4><p>在ios的simulator上，command+d调出菜单，选择Stop Remote JS Debugging</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/debugJSStop.png" alt="stop debug"></p>
+<p>参照<a href="http://facebook.github.io/react-native/releases/0.31/docs/debugging.html#debugging" target="_blank" rel="noopener">facebook debugging文档</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">react native</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">Runtime is not ready for debugging</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">Network request failed</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/08/08/react-native与webapi交互/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-curl测试restful服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1018,88 +1119,9 @@ $ rm -rf !(filename)
 
 
   
-    <article id="testhexo-mac下搭建hexo至github" class="article article-type-testhexo  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/22/mac下搭建hexo至github/">mac下搭建hexo至github</a>
-    </h1>
-  
-
-        
-        <a href="/2016/05/22/mac下搭建hexo至github/" class="archive-article-date">
-  	<time datetime="2016-05-22T03:28:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>hexo</strong>是一款基于Node.js的静态博客框架:<a href="https://github.com/hexojs/hexo" target="_blank" rel="noopener">hexo github</a></p>
-<h2 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h2><pre><code>brew install node
-</code></pre><h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><pre><code>npm install -g hexo
-hexo init &lt;folder&gt;
-npm install
-</code></pre><h2 id="hexo语法"><a href="#hexo语法" class="headerlink" title="hexo语法"></a>hexo语法</h2><pre><code>hexo new &quot;postName&quot; #新建文章
-hexo generate #生成静态页面至public目录
-hexo server #本地预览，默认4000端口
-hexo deploy ＃发布
-</code></pre><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>修改hexo根目录下的_config.yml文件,xxx为github的账户名称。  </p>
-<pre><code>deploy:
-  type: git
-  repository: https://github.com/xxx/xxx.github.io.git
-  branch: master
-</code></pre><p>在github创建xxx.github.io</p>
-<h2 id="安装主题"><a href="#安装主题" class="headerlink" title="安装主题"></a>安装主题</h2><p>个人比较喜欢<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="noopener">yilia github</a></p>
-<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><pre><code>$ hexo d -g
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/05/22/mac下搭建hexo至github/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 
@@ -1435,6 +1457,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">分布式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ipython</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">requests</a>
               </li>
              
               <li class="article-tag-list-item">
