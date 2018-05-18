@@ -176,7 +176,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="刷票代码"><a href="#刷票代码" class="headerlink" title="刷票代码"></a>刷票代码</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/usr/bin/env python</span><br><span class="line"><span class="meta">#</span> -*- coding:utf-8 -*-</span><br><span class="line"></span><br><span class="line">import requests</span><br><span class="line">import time,random</span><br><span class="line"></span><br><span class="line">get_cookie=requests.get("https://aa.rrxiu.cc/v/4uj43w?vt=1&amp;from_code=3c2953a3680daf86bfdb76cef13d2572&amp;guid97=d8c3e2e1aee2be5b35e571711865189f-162498&amp;from=timeline&amp;isappinstalled=0")</span><br><span class="line"></span><br><span class="line">data=&#123;'wsiteGuid':'4uj43w','wxOpenId':'','nickName':'','headimgurl':'','guid':'d8c3e2e1aee2be5b35e571711865189f','id':'162498'&#125;</span><br><span class="line"></span><br><span class="line">for i in range(5):</span><br><span class="line">    r = requests.post('https://res2.rrxiu.net/pluginPhotoVote/photoVoteData/vote',cookies=get_cookie.cookies,data=data)</span><br><span class="line">    print(r.text)</span><br><span class="line">    time.sleep(random.randint(1,5))</span><br></pre></td></tr></table></figure>
+        <h2 id="刷票代码"><a href="#刷票代码" class="headerlink" title="刷票代码"></a>刷票代码</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"><span class="comment"># -*- coding:utf-8 -*-</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">import</span> time,random</span><br><span class="line"></span><br><span class="line">get_cookie=requests.get(<span class="string">"https://aa.rrxiu.cc/v/4uj43w?vt=1&amp;from_code=3c2953a3680daf86bfdb76cef13d2572&amp;guid97=d8c3e2e1aee2be5b35e571711865189f-162498&amp;from=timeline&amp;isappinstalled=0"</span>)</span><br><span class="line"></span><br><span class="line">data=&#123;<span class="string">'wsiteGuid'</span>:<span class="string">'4uj43w'</span>,<span class="string">'wxOpenId'</span>:<span class="string">''</span>,<span class="string">'nickName'</span>:<span class="string">''</span>,<span class="string">'headimgurl'</span>:<span class="string">''</span>,<span class="string">'guid'</span>:<span class="string">'d8c3e2e1aee2be5b35e571711865189f'</span>,<span class="string">'id'</span>:<span class="string">'162498'</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5</span>):</span><br><span class="line">    r = requests.post(<span class="string">'https://res2.rrxiu.net/pluginPhotoVote/photoVoteData/vote'</span>,cookies=get_cookie.cookies,data=data)</span><br><span class="line">    print(r.text)</span><br><span class="line">    time.sleep(random.randint(<span class="number">1</span>,<span class="number">5</span>))</span><br></pre></td></tr></table></figure>
 
       
 
@@ -324,6 +324,95 @@
 
 
   
+    <article id="post-为Jupyter Notebook添加目录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/24/为Jupyter Notebook添加目录/">为Jupyter Notebook添加目录</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/24/为Jupyter Notebook添加目录/" class="archive-article-date">
+  	<time datetime="2018-04-24T03:45:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 为Jupyter Notebook生成目录，需要安装插件Jupyter notebook extensions：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> conda install -c conda-forge jupyter_contrib_nbextensions</span><br></pre></td></tr></table></figure>
+<p>重启jupyter notebook，可以将代码中插入的markdown文字，采集成左侧目录。并可根据需求进行设置。</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/notebook-extension.png" alt="notebook-extension"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">jupyter notebook</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ai</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keras</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/24/为Jupyter Notebook添加目录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-利用AppVeyor做GithubIO的CI" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -399,95 +488,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/24/利用AppVeyor做GithubIO的CI/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-为Jupyter Notebook添加目录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/24/为Jupyter Notebook添加目录/">为Jupyter Notebook添加目录</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/24/为Jupyter Notebook添加目录/" class="archive-article-date">
-  	<time datetime="2018-04-24T03:45:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p> 为Jupyter Notebook生成目录，需要安装插件Jupyter notebook extensions：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> conda install -c conda-forge jupyter_contrib_nbextensions</span><br></pre></td></tr></table></figure>
-<p>重启jupyter notebook，可以将代码中插入的markdown文字，采集成左侧目录。并可根据需求进行设置。</p>
-<p><img src="http://obksgg9lx.bkt.clouddn.com/notebook-extension.png" alt="notebook-extension"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">jupyter notebook</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ai</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keras</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/24/为Jupyter Notebook添加目录/">展开全文 >></a>
         </p>
       
 
@@ -1405,6 +1405,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">AppVeyor</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">jupyter notebook</a>
               </li>
              
@@ -1414,14 +1422,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keras</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">AppVeyor</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">github</a>
               </li>
              
               <li class="article-tag-list-item">
