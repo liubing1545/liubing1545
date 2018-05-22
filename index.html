@@ -156,6 +156,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-tornado的异步方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/22/tornado的异步方式/">tornado的异步方式</a>
+    </h1>
+  
+
+        
+        <a href="/2018/05/22/tornado的异步方式/" class="archive-article-date">
+  	<time datetime="2018-05-22T09:44:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>Tornado是Facebook主要为HTTP客户端和服务器端开发的异步I/O包。Tornado主要应对的是I/O密集型应用，Tornado可以使用协成和回调两种方式。</p>
+<h2 id="协成"><a href="#协成" class="headerlink" title="协成"></a>协成</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tornado <span class="keyword">import</span> gen</span><br><span class="line"></span><br><span class="line"><span class="meta">@gen.coroutine</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">fetch_coroutine</span><span class="params">(url)</span>:</span></span><br><span class="line">    http_client = AsyncHTTPClient()</span><br><span class="line">    response = <span class="keyword">yield</span> http_client.fetch(url)</span><br><span class="line">    <span class="comment">#为了返回值，python2中需要生成一个特殊的异常；在python3.3以后直接用return</span></span><br><span class="line">    <span class="keyword">raise</span> gen.Return(response.body)</span><br></pre></td></tr></table></figure>
+<ul>
+<li><a href="mailto:**@gen.coroutine" target="_blank" rel="noopener">**@gen.coroutine</a><strong>和</strong>yield**搭配使用，代表的是协成。</li>
+<li><strong>yield</strong>之后挂起耗时操作，耗时操作完成时从挂起的位置接着往下执行。</li>
+<li>Tornado的协成是由python的generators来支持的。</li>
+</ul>
+<h2 id="回调"><a href="#回调" class="headerlink" title="回调"></a>回调</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> tornado.httpclient <span class="keyword">import</span> AsyncHTTPClient</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">asynchronous_fetch</span><span class="params">(url, callback)</span>:</span></span><br><span class="line">    http_client = AsyncHTTPClient()</span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">handle_response</span><span class="params">(response)</span>:</span></span><br><span class="line">        callback(response.body)</span><br><span class="line">    http_client.fetch(url, callback=handle_response)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>http_client第二个参数callback指定了回调函数。</li>
+<li>多重的显式的回调容易引起“回调地狱”。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">tornado</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多并发</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/05/22/tornado的异步方式/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-刷票" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -984,88 +1073,6 @@
 
 
   
-    <article id="post-关于android资源文件路径" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/04/关于android资源文件路径/">关于android资源文件路径</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/04/关于android资源文件路径/" class="archive-article-date">
-  	<time datetime="2017-11-04T10:33:16.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="android资源文件的目录："><a href="#android资源文件的目录：" class="headerlink" title="android资源文件的目录："></a>android资源文件的目录：</h2><ul>
-<li>res/raw文件夹</li>
-<li>asserts文件夹</li>
-</ul>
-<h4 id="res-raw"><a href="#res-raw" class="headerlink" title="res/raw"></a>res/raw</h4><p>不能创建文件夹，只可创建文件。</p>
-<h4 id="asserts"><a href="#asserts" class="headerlink" title="asserts"></a>asserts</h4><ul>
-<li>可以创建文件夹。</li>
-<li>AssertManager没有提供直接获取asserts文件夹folder路径的function。 </li>
-</ul>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">android</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/04/关于android资源文件路径/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1416,6 +1423,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keras</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多并发</a>
               </li>
              
               <li class="article-tag-list-item">

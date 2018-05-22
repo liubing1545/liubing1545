@@ -156,6 +156,87 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-docker容器启动iptables报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/28/docker容器启动iptables报错/">docker容器启动iptables报错</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/28/docker容器启动iptables报错/" class="archive-article-date">
+  	<time datetime="2017-03-28T12:22:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="错误信息"><a href="#错误信息" class="headerlink" title="错误信息"></a>错误信息</h3><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">docker0:</span> <span class="attr">iptables:</span> <span class="literal">No</span> <span class="string">chain/target/match</span> <span class="string">by</span> <span class="string">that</span> <span class="string">name</span></span><br></pre></td></tr></table></figure>
+<h3 id="重启docker"><a href="#重启docker" class="headerlink" title="重启docker"></a>重启docker</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">service docker restart</span></span><br></pre></td></tr></table></figure>
+<h3 id="列出iptables的所有规则"><a href="#列出iptables的所有规则" class="headerlink" title="列出iptables的所有规则"></a>列出iptables的所有规则</h3><figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">iptables -L</span></span><br></pre></td></tr></table></figure>
+<p>可以看到iptables里面多出了Chain Docker的选项。<br>经验为：在启动firewalld之后，iptables被激活，此时没有docker chain，重启docker后被加入到iptable里面。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">iptables</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/28/docker容器启动iptables报错/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-java工程启动No-Route-to-host" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1006,222 +1087,6 @@ if __name__ == &apos;__main__&apos;:
 
 
   
-    <article id="post-认识javascript" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/08/认识javascript/">认识javascript</a>
-    </h1>
-  
-
-        
-        <a href="/2016/08/08/认识javascript/" class="archive-article-date">
-  	<time datetime="2016-08-08T09:08:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="javascript基础"><a href="#javascript基础" class="headerlink" title="javascript基础"></a>javascript基础</h2><h4 id="声明"><a href="#声明" class="headerlink" title="声明"></a>声明</h4><ul>
-<li>声明变量不用var时，该变量为全局变量</li>
-</ul>
-<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><ul>
-<li><p>Number  </p>
-<ul>
-<li><em>整型常量</em>(10进制\8进制\16进制)<br>  十六进制以0x或0X开头, 例如: 0x8a<br>八进制必须以0开头, 例如: 0123<br>十进制的第一位不能是0(数字0除外), 例如: 123</li>
-<li><em>实型常量</em><br>12.32, 193.98, 5E7, 4e5等</li>
-</ul>
-</li>
-<li><p>Boolean</p>
-</li>
-<li>String  <ul>
-<li>“abc”，’abc’<br>双引号会搜索引号内的内容是否含有变量，有则输出其值，没有则输出原有内容<br>单引号则不会检测内容，因此效率更高</li>
-<li>特殊字符，需要以反斜杠()后跟一个普通字符来表示<br>例如: \r, \n, \t, \b, \’</li>
-</ul>
-</li>
-<li>null常量</li>
-<li>undefined常量</li>
-<li>特殊数值<br>NaN, Infinity(无穷大), isNaN(), isFinite()</li>
-</ul>
-<h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><ul>
-<li>&amp;&amp; 逻辑与</li>
-<li>|| 逻辑或</li>
-<li>! 逻辑非</li>
-</ul>
-<h2 id="定义一个类"><a href="#定义一个类" class="headerlink" title="定义一个类"></a>定义一个类</h2><pre><code>function Person(name) {
-    this.name = name;
-}
-</code></pre><h2 id="一切都是对象"><a href="#一切都是对象" class="headerlink" title="一切都是对象"></a>一切都是对象</h2><p>类(函数)也是对象</p>
-<h2 id="创建对象"><a href="#创建对象" class="headerlink" title="创建对象"></a>创建对象</h2><pre><code>var p = new Person(&quot;张三&quot;)
-</code></pre><h2 id="闭包closure"><a href="#闭包closure" class="headerlink" title="闭包closure"></a>闭包closure</h2><p>函数内部可以直接读取全局变量。  </p>
-<pre><code>var n = 999;
-
-function f1() {
-    alert(n);
-}
-
-f1(); // 999
-</code></pre><p>函数外部无法读取函数内的局部变量。  </p>
-<pre><code>function f1() {
-    var n = 999;
-}
-
-alert(n); // error
-</code></pre><p>利用闭包，从函数外部读取函数内的局部变量。</p>
-<pre><code>function f1() {
-    var n = 999;
-
-    function f2() {
-        alert(n);
-    }
-
-    return f2;
-}
-
-var result = f1();
-result(); // 999
-</code></pre><h2 id="作用域scope（上下文）"><a href="#作用域scope（上下文）" class="headerlink" title="作用域scope（上下文）"></a>作用域scope（上下文）</h2><p>上下文对象就是使用this指针，即被调用函数所处的环境。上下文对象在一个函数内部引用调用它的对象本身。  </p>
-<pre><code>var someuser = {
-    name: &apos;byvoid&apos;,
-    func: function() {
-        console.log(this.name);
-    }
-};
-
-var foo = {
-    name: &apos;foobar&apos;
-};
-
-someuser.func(); // byvoid
-
-foo.func = someuser.func;
-foo.func(); // foobar
-
-name = &apos;global&apos;;
-func = someuser.func;
-func(); // globar
-</code></pre><h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><p>利用prototype可以扩展js类。  </p>
-<pre><code>Number.prototype.add = function(v) {
-    return this + v;
-}    
-
-var d = 6;
-d.add(8).add(9); // d = 6 + 8 + 9
-</code></pre><p>扩展自定义的类。</p>
-<pre><code>function Person(name) {
-    this.name = name;
-}
-
-Person.prototype.sayHello = function() {
-    alert(this.name);
-}
-
-var p = new Person(&quot;zhangsan&quot;);
-p.sayHello();
-</code></pre><h2 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h2><p>classB继承classA</p>
-<pre><code>function classA(name) {
-    this.name = name;
-    this.sayHello = function() {
-        alert(this.name);
-    }
-}
-</code></pre><p>方法1</p>
-<pre><code>function classB(name) {
-    this.tempMethod = classA;
-    this.tempMethod(name);
-}
-</code></pre><p>方法2</p>
-<pre><code>function classB(name) {
-    classA.call(this, name);
-}
-</code></pre><p>方法3</p>
-<pre><code>function classB(name) {
-    classA.apply(this, [name]);
-}
-</code></pre><p>调用classB</p>
-<pre><code>var b = new classB(&quot;lisa&quot;);
-b.sayHello();
-</code></pre><h2 id="可变参数"><a href="#可变参数" class="headerlink" title="可变参数"></a>可变参数</h2><p>在js的世界里，内置属性arguments可以接收可辨参数。</p>
-<pre><code>function sum() {
-    var s = 0;
-    for(var i = 0; i &lt; arguments.length; i++) {
-        s+ = arguments[i];
-    }
-
-    return s;
-}
-
-alert(sum(1,4,5));
-alert(sum(12,15,19,21,51));
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">闭包</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">作用域</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">上下文</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/08/08/认识javascript/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1572,6 +1437,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keras</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">多并发</a>
               </li>
              
               <li class="article-tag-list-item">
