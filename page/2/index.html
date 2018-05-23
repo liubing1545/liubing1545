@@ -156,6 +156,104 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-Docker-outside-of-Docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/16/Docker-outside-of-Docker/">Docker outside of Docker</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/16/Docker-outside-of-Docker/" class="archive-article-date">
+  	<time datetime="2017-11-16T08:06:20.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-16</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="添加用户jenkins至docker组"><a href="#添加用户jenkins至docker组" class="headerlink" title="添加用户jenkins至docker组"></a>添加用户jenkins至docker组</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span> 如果不存在docker组就groupadd一个</span><br><span class="line"><span class="meta">$</span> sudo groupadd docker</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 添加用户jenkins至docker组 </span><br><span class="line"><span class="meta">$</span> sudo gpasswd -a jenkins docker</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span> 重启docker服务</span><br><span class="line"><span class="meta">$</span> sudo service docker restart</span><br></pre></td></tr></table></figure>
+<h2 id="自定义jenkins镜像"><a href="#自定义jenkins镜像" class="headerlink" title="自定义jenkins镜像"></a>自定义jenkins镜像</h2><p>镜像Dockerfile    </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">From jenkins</span><br><span class="line"></span><br><span class="line">USER root</span><br><span class="line">AGR dockerGid=995</span><br><span class="line"></span><br><span class="line">RUN echo "docker:x:$&#123;dockerGid&#125;:jenkins" &gt;&gt; /etc/group</span><br><span class="line"></span><br><span class="line">USER jenkins</span><br></pre></td></tr></table></figure>
+<p>其中的dockerGid是docker组id，可以在宿主机里<strong>cat /etc/group | grep ^docker</strong>查看组id序号。    </p>
+<h3 id="docker-dial-unix-var-run-docker-sock-permission-denied"><a href="#docker-dial-unix-var-run-docker-sock-permission-denied" class="headerlink" title="docker:dial unix /var/run/docker.sock:permission denied."></a>docker:dial unix /var/run/docker.sock:permission denied.</h3><p>上面的dockerfile内容关键是将宿主机的docker组及用户配置，写入docker镜像里，防止在docker容器里运行docker命令没有权限，会报错。<br><strong>一定要注意，设置的dockerGid一定要与宿主机的组id一致。</strong></p>
+<h3 id="build自定义镜像"><a href="#build自定义镜像" class="headerlink" title="build自定义镜像"></a>build自定义镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t local_jenkins</span><br></pre></td></tr></table></figure>
+<h2 id="Docker进程监听的Unix域socket"><a href="#Docker进程监听的Unix域socket" class="headerlink" title="Docker进程监听的Unix域socket"></a>Docker进程监听的Unix域socket</h2><h3 id="var-run-docker-sock"><a href="#var-run-docker-sock" class="headerlink" title="/var/run/docker.sock"></a>/var/run/docker.sock</h3><p>这个文件是什么呢？简单地说，它是Docker守护进程(Docker daemon)默认监听的Unix域套接字(Unix domain socket)，容器中的进程可以通过它与Docker守护进程进行通信。</p>
+<h3 id="管理jenkins的docker-compose"><a href="#管理jenkins的docker-compose" class="headerlink" title="管理jenkins的docker-compose"></a>管理jenkins的docker-compose</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">version: '2'</span><br><span class="line">services:</span><br><span class="line">  my_jenkins:</span><br><span class="line">    image: local_jenkins</span><br><span class="line">    volumes:</span><br><span class="line">      - ./jenkins_home:/var/jenkins_home</span><br><span class="line">      - /bin/docker:/usr/bin/docker</span><br><span class="line">      - /usr/bin/docker.sock:/var/run/docker.sock</span><br><span class="line">    ports:</span><br><span class="line">      - "8081:8080"</span><br></pre></td></tr></table></figure>
+<p>在这个docker-compose中，我们挂载了<strong>/bin/docker</strong>,<strong>/var/run/docker.sock</strong>，实现了DooD(Docker outside of Docker)。在jenkins镜像里run起来的容器实际上就是运行在宿主机上的。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续集成</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CI</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">DooD</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">jenkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/16/Docker-outside-of-Docker/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-关于android资源文件路径" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -921,82 +1019,6 @@ bind = &apos;127.0.0.1:8000&apos;
 
 
   
-    <article id="post-Write-failed-Broken-pipe" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/05/Write-failed-Broken-pipe/">Write failed: Broken pipe</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/05/Write-failed-Broken-pipe/" class="archive-article-date">
-  	<time datetime="2017-07-05T02:52:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="Write-failed-Broken-pipe"><a href="#Write-failed-Broken-pipe" class="headerlink" title="Write failed: Broken pipe"></a>Write failed: Broken pipe</h3><p>ssh远程连接阿里云centos服务器时，隔几分钟不操作，就会报错：<br><figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">Write</span> failed: <span class="keyword">Broken </span>pipe</span><br></pre></td></tr></table></figure></p>
-<p>解决方法：<br>在/etc/ssh/sshd_config文件中，添加如下配置：　<br><figure class="highlight lsl"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ClientAliveInterval <span class="number">60</span></span><br></pre></td></tr></table></figure></p>
-<p>重启一下就生效了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">aliyun</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/05/Write-failed-Broken-pipe/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1338,11 +1360,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
+                <a href="javascript:void(0)" class="js-tag color2">gevent</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
               </li>
              
               <li class="article-tag-list-item">

@@ -156,6 +156,107 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-flask-migrate数据库迁移" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/08/11/flask-migrate数据库迁移/">flask-migrate数据库迁移</a>
+    </h1>
+  
+
+        
+        <a href="/2016/08/11/flask-migrate数据库迁移/" class="archive-article-date">
+  	<time datetime="2016-08-11T01:50:52.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-11</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在迭代开发中，会阶段性的变更数据库模型，更新数据库。<br>变更时，为了不丢失数据库中的数据，可以使用数据库迁移工具。  </p>
+<p><strong>flask－migrate</strong>是对Alembic的轻量级封装，并且已经被集成到了flask-script中。  </p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre><code>$ pip install flask-migrate
+</code></pre><h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><pre><code>from flask_sqlalchemy import SQLAlchemy as SQLAlchemy
+from flask_script import Manager, Shell
+from flask_migrate import Migrate, MigrateCommand
+
+app = Flask(__name__)
+manager = Manager(app)
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
+
+manager.add_command(&quot;shell&quot;, Shell(make_context=make_shell_context))
+manager.add_command(&apos;db&apos;, MigrateCommand)
+
+if __name__ == &apos;__main__&apos;:
+    manager.run()
+</code></pre><h2 id="创建迁移仓库"><a href="#创建迁移仓库" class="headerlink" title="创建迁移仓库"></a>创建迁移仓库</h2><pre><code>$ python xxx.py db init
+</code></pre><h2 id="创建迁移脚本"><a href="#创建迁移脚本" class="headerlink" title="创建迁移脚本"></a>创建迁移脚本</h2><pre><code>$ python xxx.py db migrate
+</code></pre><h2 id="数据库迁移"><a href="#数据库迁移" class="headerlink" title="数据库迁移"></a>数据库迁移</h2><pre><code>$ python xxx.py db upgrade    
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">flask-migrate</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/08/11/flask-migrate数据库迁移/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-认识javascript" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1179,83 +1280,6 @@ $ rm -rf !(filename)
 
 
   
-    <article id="post-pip-freeze" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/31/pip-freeze/">pip freeze</a>
-    </h1>
-  
-
-        
-        <a href="/2016/05/31/pip-freeze/" class="archive-article-date">
-  	<time datetime="2016-05-31T02:15:40.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-05-31</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在本地python开发时，可以生成requirements.txt文件，用于记录所有依赖包及其精确的版本号。  </p>
-<pre><code>pip freeze &gt;requirements.txt
-</code></pre><p>可创建与本地完全一致的副本环境。  </p>
-<pre><code>pip install -r requirements.txt
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/05/31/pip-freeze/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1597,11 +1621,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
+                <a href="javascript:void(0)" class="js-tag color2">gevent</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
               </li>
              
               <li class="article-tag-list-item">

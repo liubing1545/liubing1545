@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://liubing.com">
-  <title>Archives: 2016/7 | Bad Seeds</title>
+  <title>gevent | Bad Seeds</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Bad Seeds">
-<meta property="og:url" content="http://liubing.com/archives/2016/07/index.html">
+  <meta name="description" content="介绍gevent是基于协程的高性能Python网络库，相比Twisted、Stackless等，gevent使用libev事件循环，因此速度很快、性能很好，使用greenlet提供高层的同步API，因此非常轻量。作者曾经是另一个Python网络库Eventlet的开发者之一，2009年因 为Eventlet无法满足项目需要，他决定另外开发一个更轻量的库，这就是gevent。某种意义上，gevent">
+<meta name="keywords" content="gevent,多并发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="gevent">
+<meta property="og:url" content="http://liubing.com/2018/05/23/gevent/index.html">
 <meta property="og:site_name" content="Bad Seeds">
+<meta property="og:description" content="介绍gevent是基于协程的高性能Python网络库，相比Twisted、Stackless等，gevent使用libev事件循环，因此速度很快、性能很好，使用greenlet提供高层的同步API，因此非常轻量。作者曾经是另一个Python网络库Eventlet的开发者之一，2009年因 为Eventlet无法满足项目需要，他决定另外开发一个更轻量的库，这就是gevent。某种意义上，gevent">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-05-23T09:39:45.151Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Bad Seeds">
+<meta name="twitter:title" content="gevent">
+<meta name="twitter:description" content="介绍gevent是基于协程的高性能Python网络库，相比Twisted、Stackless等，gevent使用libev事件循环，因此速度很快、性能很好，使用greenlet提供高层的同步API，因此非常轻量。作者曾经是另一个Python网络库Eventlet的开发者之一，2009年因 为Eventlet无法满足项目需要，他决定另外开发一个更轻量的库，这就是gevent。某种意义上，gevent">
   
     <link rel="alternative" href="/atom.xml" title="Bad Seeds" type="application/atom+xml">
   
@@ -154,160 +159,180 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-gevent" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      gevent
+    </h1>
+  
+
+        
+        <a href="/2018/05/23/gevent/" class="archive-article-date">
+  	<time datetime="2018-05-23T09:23:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-23</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>gevent是基于协程的高性能Python网络库，相比Twisted、Stackless等，gevent使用libev事件循环，因此速度很快、性能很好，使用greenlet提供高层的同步API，因此非常轻量。<br>作者曾经是另一个Python网络库Eventlet的开发者之一，2009年因 为Eventlet无法满足项目需要，他决定另外开发一个更轻量的库，这就是gevent。某种意义上，gevent是从Eventlet项目派生出来的。    </p>
+<h2 id="异步方式"><a href="#异步方式" class="headerlink" title="异步方式"></a>异步方式</h2><ul>
+<li>gevent对标准I/O函数做了猴子补丁，把它们变成了异步。</li>
+<li>并且gevent有greenlet对象能够被用于并发执行。</li>
+</ul>
+<h3 id="greenlet"><a href="#greenlet" class="headerlink" title="greenlet"></a>greenlet</h3><p>greenlet是一种协程。gevent的调度器在I/O等待期间使用一个事件循环在所有的greenlets间来回切换，而不是用多个CPU来运行它们。<br>gevent通过使用wait函数来设法尽可能透明化地处理事件循环。wait函数将启动一个事件循环，直到所有的greenlets结束。<br>greenlet由gevent.spawn(func, para)来创建，func是需要执行的函数，para是func的参数。一旦声明的函数执行完成，它的值就会包含在greenlet的value域中。    </p>
+<h2 id="猴子补丁"><a href="#猴子补丁" class="headerlink" title="猴子补丁"></a>猴子补丁</h2><p>Monkey Patch就是在运行时对已有的代码进行修改，达到hot patch的目的。</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> gevent <span class="keyword">import</span> monkey; monkey.patch_all()</span><br><span class="line"><span class="keyword">import</span> gevent</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">f</span><span class="params">(url)</span>:</span></span><br><span class="line">	print(<span class="string">'GET: %s'</span> % url)</span><br><span class="line">	headers = &#123;<span class="string">'User-Agent'</span>: <span class="string">'Mozilla/5.0'</span>&#125;</span><br><span class="line">	r = requests.get(url, headers = headers)</span><br><span class="line">	print(<span class="string">'%d bytes received from %s.'</span> % (r.status_code, url))</span><br><span class="line"> </span><br><span class="line"></span><br><span class="line">gevent.joinall([</span><br><span class="line">	gevent.spawn(f, <span class="string">'https://www.baidu.com'</span>), </span><br><span class="line">	gevent.spawn(f, <span class="string">'https://www.sina.com'</span>),</span><br><span class="line">	gevent.spawn(f, <span class="string">'http://www.douban.com'</span>)</span><br><span class="line">])</span><br></pre></td></tr></table></figure>
+<p>结果：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">(venv2) E:\github\concurrent&gt;python gevent2.py</span><br><span class="line">GET: https://www.baidu.com</span><br><span class="line">GET: https://www.sina.com</span><br><span class="line">GET: http://www.douban.com</span><br><span class="line">200 bytes received from https://www.baidu.com.</span><br><span class="line">200 bytes received from http://www.douban.com.</span><br><span class="line">200 bytes received from https://www.sina.com.</span><br></pre></td></tr></table></figure></p>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><p>在部署的时候，用一个支持gevent的WSGI服务器，立刻就获得了数倍的性能提升。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/07/19/curl测试restful服务/" class="archive-article-date">
-  	<time datetime="2016-07-19T08:00:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-19</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/19/curl测试restful服务/">curl测试restful服务</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">curl</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">gevent</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">restful</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多并发</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://liubing.com/2018/05/23/gevent/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/07/18/centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx/" class="archive-article-date">
-  	<time datetime="2016-07-18T08:59:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-18</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2018/05/22/tornado的异步方式/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">tornado的异步方式</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
+        
+        
+    </div>
+</aside>
+
+
+
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/18/centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx/">centOS下配置Virtualenv+Flask+Gunicorn+Supervisor+Nginx</a>
-    </h1>
+  
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centOS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Virtualenv</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Gunicorn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Supervisor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/07/07/react-native初体验/" class="archive-article-date">
-  	<time datetime="2016-07-07T06:21:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-07</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/07/07/react-native初体验/">react native初体验</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">react native</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">npmjs.org:443</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -330,8 +355,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
