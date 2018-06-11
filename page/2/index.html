@@ -156,6 +156,117 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-jenkins自动部署docker应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/17/jenkins自动部署docker应用/">jenkins自动部署docker应用</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/17/jenkins自动部署docker应用/" class="archive-article-date">
+  	<time datetime="2017-11-17T10:29:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-17</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="项目背景"><a href="#项目背景" class="headerlink" title="项目背景"></a>项目背景</h2><p>目前需要部署一个基于python flask的web服务，数据库使用的是postgresql。</p>
+<h2 id="思路-amp-流程"><a href="#思路-amp-流程" class="headerlink" title="思路&amp;流程"></a>思路&amp;流程</h2><ul>
+<li>准备docker镜像</li>
+<li>jenkins拉取远端源码–git</li>
+<li>实现应用打包–jenkins本地</li>
+<li>把应用打包进docker镜像–dockerfile</li>
+<li>镜像同步到docker私有仓库–shell docker命令</li>
+<li>删除老的docker容器–shell docker命令</li>
+<li>运行新的docker容器–shell docker命令</li>
+</ul>
+<h3 id="准备docker镜像"><a href="#准备docker镜像" class="headerlink" title="准备docker镜像"></a>准备docker镜像</h3><h4 id="创建自定义flask镜像"><a href="#创建自定义flask镜像" class="headerlink" title="创建自定义flask镜像"></a>创建自定义flask镜像</h4><p>基于<strong>tiangolo/uwsgi-nginx-flask</strong>创建flask的镜像。<br>自定义flask镜像的dockerfile:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">FROM tiangolo/uwsgi-nginx-flask:python2.7</span><br><span class="line"></span><br><span class="line">COPY ./app /app</span><br><span class="line">COPY ./lib/libseuif97.so /usr/lib</span><br><span class="line">RUN pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<p>因为网络环境不好，安装requirements.txt中python的第三方库时，发生报错，因此我将基本的库事先安装好。<br>并且把需要的so静态文件也COPY进镜像中。<br>后面如果有变化，可以根据需要在jenkins中再动态生成dockerfile并执行。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t test-flask .</span><br></pre></td></tr></table></figure>
+<h4 id="创建自定义的postgresql"><a href="#创建自定义的postgresql" class="headerlink" title="创建自定义的postgresql"></a>创建自定义的postgresql</h4><p>自定义postgresql镜像的dockerfile:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">FROM postgres:9.3</span><br><span class="line"></span><br><span class="line">ADD ./sql /docker-entrypoint-initdb.d/</span><br></pre></td></tr></table></figure>
+<p>我们有一些master表，以及基础数据，我们需要在运行这个容器之前，将这些基础数据insert进db这个docker之中。<br>可以把各种sql文件放入/sql路径下。</p>
+<h4 id="commit到私有docker仓库"><a href="#commit到私有docker仓库" class="headerlink" title="commit到私有docker仓库"></a>commit到私有docker仓库</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker commit -m "flask插件安装" -a "liubing" $containId liubing/test-flask</span><br><span class="line">docker tag liubing/$imageName $dockerRegistsryAddress/test-flask</span><br><span class="line">docker push $dockerRegistsryAddress/test-flask</span><br></pre></td></tr></table></figure>
+<p>db的docker也可提前commit到私有仓库。</p>
+<h3 id="jenkins拉源码"><a href="#jenkins拉源码" class="headerlink" title="jenkins拉源码"></a>jenkins拉源码</h3><p>在jenkins中配置“源码管理”，输入source仓库的git地址，并绑定git用户及需要检测状态变化的branch。在构建时会自动下载git源码的。</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/git.png" alt="配置git地址"></p>
+<h3 id="实现应用打包"><a href="#实现应用打包" class="headerlink" title="实现应用打包"></a>实现应用打包</h3><p>目前开发的是一个python项目，python不需要打包。源码即可执行。</p>
+<h3 id="把应用打包进docker镜像"><a href="#把应用打包进docker镜像" class="headerlink" title="把应用打包进docker镜像"></a>把应用打包进docker镜像</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">echo 'From $dockerRegistsryAddress/test-flask</span><br><span class="line">MAINTAINER liubing "lbingg@hotmail.com"</span><br><span class="line"></span><br><span class="line">COPY . /app</span><br><span class="line"></span><br><span class="line">' &gt; Dockerfile;</span><br></pre></td></tr></table></figure>
+<p>jenkins中执行的脚本会默认当前脚本处于jenkins环境中的workspace中的当前应用工程下。因此在copy程序时，我们需要将当前目录下的所有文件全部拷贝入新创建docker镜像的/app目录中。</p>
+<h3 id="镜像同步到docker私有仓库"><a href="#镜像同步到docker私有仓库" class="headerlink" title="镜像同步到docker私有仓库"></a>镜像同步到docker私有仓库</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker build -t $dockerRegistsryAddress/test-flask;</span><br></pre></td></tr></table></figure>
+<h3 id="删除老的docker容器"><a href="#删除老的docker容器" class="headerlink" title="删除老的docker容器"></a>删除老的docker容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker stop postgresql || true;</span><br><span class="line">docker rm postgresql || true;</span><br><span class="line">docker stop test-flask || true;</span><br><span class="line">docker rm test-flask || true;</span><br></pre></td></tr></table></figure>
+<h3 id="运行新的docker容器"><a href="#运行新的docker容器" class="headerlink" title="运行新的docker容器"></a>运行新的docker容器</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run --name=postgresql -itd --restart always --publish 5432:5432 --volume /opt/postgresql/data:/var/lib/postgresql --env 'DB_USER=postgres' --env 'DB_PASS=postgres' --env 'DB_NAME=postgres' $dockerRegistryAddress:5000/test-db-1;</span><br><span class="line"></span><br><span class="line">docker run --name test-flask --publish 80:80 --link postgresql:postgres -d $dockerRegistryAddress:5000/test-flask;</span><br></pre></td></tr></table></figure>
+<p>jenkins中的“构建”配置</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/structure.png" alt="配置构建"></p>
+<h3 id="问题点"><a href="#问题点" class="headerlink" title="问题点"></a>问题点</h3><p>需要在jenkins的docker中运行其他的docker命令，可以使用Docker outside of Docker来配置。<br><img src="http://liubing1545.github.io/2017/11/16/Docker-outside-of-Docker" alt="Docker-outside-of-Docker"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">jenkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续部署</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/17/jenkins自动部署docker应用/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Docker-outside-of-Docker" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -935,90 +1046,6 @@ bind = &apos;127.0.0.1:8000&apos;
 
 
   
-    <article id="post-supervisor管理服务器进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/07/supervisor管理服务器进程/">supervisor管理服务器进程</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/07/supervisor管理服务器进程/" class="archive-article-date">
-  	<time datetime="2017-07-07T08:57:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在服务器上同时管理多个java进程和python进程，我使用supervisor。<br>在/etc/supervisor/conf.d/路径下创建xxx.conf<br>在xxx.conf下配置如下    </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[program:gzh]</span><br><span class="line">command=/root/python-gzh/venv/bin/gunicorn main:application -c /root/python-gzh/gunicorn.conf</span><br><span class="line">directory=/root/python-gzh</span><br><span class="line">user=root</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=true</span><br><span class="line">stdout_logfile=/root/python-gzh/logs/gzh.log</span><br><span class="line"></span><br><span class="line">[program:provider]</span><br><span class="line">command=java -jar /root/springboot/platform-system-provider.jar --spring.profiles.active=prod</span><br><span class="line">directory=/root/springboot</span><br><span class="line">user=root</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=true</span><br><span class="line">stdout_logfile=/root/springboot/logs/provider.log</span><br><span class="line"></span><br><span class="line">[program:webapi]</span><br><span class="line">command=java -jar /root/springboot/platform-mobile-client.jar --spring.profiles.active=prod</span><br><span class="line">directory=/root/springboot</span><br><span class="line">user=root</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=true</span><br><span class="line">stdout_logfile=/root/springboot/logs/webapi.log</span><br><span class="line"></span><br><span class="line">[program:web]</span><br><span class="line">command=java -jar /root/springboot/platform-admin-web.jar --spring.profiles.active=prod</span><br><span class="line">directory=/root/springboot</span><br><span class="line">user=root</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=true</span><br><span class="line">stdout_logfile=/root/springboot/logs/web.log</span><br></pre></td></tr></table></figure>
-<p>通过supervisorctl可以监控管理各种进程的状态了。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">supervisor</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">sprintboot</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">web.py</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/07/supervisor管理服务器进程/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1365,6 +1392,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">

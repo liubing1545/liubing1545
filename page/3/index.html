@@ -156,6 +156,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-supervisor管理服务器进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/07/supervisor管理服务器进程/">supervisor管理服务器进程</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/07/supervisor管理服务器进程/" class="archive-article-date">
+  	<time datetime="2017-07-07T08:57:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在服务器上同时管理多个java进程和python进程，我使用supervisor。<br>在/etc/supervisor/conf.d/路径下创建xxx.conf<br>在xxx.conf下配置如下    </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">[program:gzh]</span><br><span class="line">command=/root/python-gzh/venv/bin/gunicorn main:application -c /root/python-gzh/gunicorn.conf</span><br><span class="line">directory=/root/python-gzh</span><br><span class="line">user=root</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=true</span><br><span class="line">stdout_logfile=/root/python-gzh/logs/gzh.log</span><br><span class="line"></span><br><span class="line">[program:provider]</span><br><span class="line">command=java -jar /root/springboot/platform-system-provider.jar --spring.profiles.active=prod</span><br><span class="line">directory=/root/springboot</span><br><span class="line">user=root</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=true</span><br><span class="line">stdout_logfile=/root/springboot/logs/provider.log</span><br><span class="line"></span><br><span class="line">[program:webapi]</span><br><span class="line">command=java -jar /root/springboot/platform-mobile-client.jar --spring.profiles.active=prod</span><br><span class="line">directory=/root/springboot</span><br><span class="line">user=root</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=true</span><br><span class="line">stdout_logfile=/root/springboot/logs/webapi.log</span><br><span class="line"></span><br><span class="line">[program:web]</span><br><span class="line">command=java -jar /root/springboot/platform-admin-web.jar --spring.profiles.active=prod</span><br><span class="line">directory=/root/springboot</span><br><span class="line">user=root</span><br><span class="line">autostart=true</span><br><span class="line">autorestart=true</span><br><span class="line">stdout_logfile=/root/springboot/logs/web.log</span><br></pre></td></tr></table></figure>
+<p>通过supervisorctl可以监控管理各种进程的状态了。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">supervisor</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">sprintboot</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">web.py</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/07/supervisor管理服务器进程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-Write-failed-Broken-pipe" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -948,120 +1032,6 @@ git push origin :refs/tags/tag_name
 
 
   
-    <article id="post-跨平台开发环境集中管理化之vagrant" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/08/12/跨平台开发环境集中管理化之vagrant/">开发团队跨平台开发环境集中管理化之vagrant</a>
-    </h1>
-  
-
-        
-        <a href="/2016/08/12/跨平台开发环境集中管理化之vagrant/" class="archive-article-date">
-  	<time datetime="2016-08-12T01:58:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-08-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>vagrant</strong>是一款用来构建虚拟开发环境的工具，非常适合各类开发语言的web应用，因统一安装本地开发环境浪费的人力成本及时间成本，以及不可避免的“work on my machine”错误，将永久告别～  </p>
-<h2 id="安装virtualbox及vagrant"><a href="#安装virtualbox及vagrant" class="headerlink" title="安装virtualbox及vagrant"></a>安装virtualbox及vagrant</h2><p>vagrant对virtualbox支持的非常好。但不匹配的版本，加载box会发生或多或少的问题。    </p>
-<p>我的工作环境的软件版本是：<br>vagrant 1.6.3<br>virtualbox 4.2.12-84980</p>
-<h2 id="添加镜像"><a href="#添加镜像" class="headerlink" title="添加镜像"></a>添加镜像</h2><p>安装好后运行以下命令可以添加vagrant官方的box镜像。  </p>
-<pre><code>$ vagrant box add hashicorp/precise64
-</code></pre><p>这是一个标准的64bit的ubuntu系统。<br>如果要下载其他系统的镜像，可以在这里下载:<a href="https://atlas.hashicorp.com/boxes/search" target="_blank" rel="noopener">https://atlas.hashicorp.com/boxes/search</a>   </p>
-<h2 id="初始化开发环境"><a href="#初始化开发环境" class="headerlink" title="初始化开发环境"></a>初始化开发环境</h2><p>切换到box文件所在目录，加载box文件及初始化 </p>
-<pre><code>$ cd ~/dev 
-$ vagrant box add test test.box 
-$ vagrant init test
-$ vagrant up
-</code></pre><h2 id="ssh登录"><a href="#ssh登录" class="headerlink" title="ssh登录"></a>ssh登录</h2><p>mac下ssh登录，虚拟机目录 /vagrant 就是宿主机的 ~/dev  </p>
-<pre><code>$ vagrant ssh
-$ cd /vagrant
-</code></pre><p><strong>windows用户注意:</strong> windows终端需要使用ssh客户端，比如putty等。</p>
-<h2 id="其他设置"><a href="#其他设置" class="headerlink" title="其他设置"></a>其他设置</h2><p>vagrant 初始化成功后，会在初始化的目录里生成一个 vagrantfile 的配置文件，可以修改配置文件进行个性化的定制。  </p>
-<p>vagrant 默认是使用端口映射的方式将虚拟机的端口映射本地从而实现类似 <a href="http://localhost:80" target="_blank" rel="noopener">http://localhost:80</a> 这种访问方式。<br>相比之下，host-only模式显得非常方便。打开 vagrantfile，将下面的注释去掉，便可以访问192.168.33.10机器上的服务了。 </p>
-<pre><code>config.vm.network &quot;private_network&quot;, ip:&quot;192.168.33.10&quot;
-</code></pre><h2 id="打包分发"><a href="#打包分发" class="headerlink" title="打包分发"></a>打包分发</h2><p>当配置好开发环境后，退出并关闭虚拟机。对开发环境进行打包。</p>
-<pre><code>$ vagrant package
-</code></pre><p>打包后，就会在当前目录下生成一个 package.box 的文件。可以分发这个文件给其他开发者。</p>
-<h2 id="集成预安装"><a href="#集成预安装" class="headerlink" title="集成预安装"></a>集成预安装</h2><p>vagrant 还提供预安装定制，打开 vagrantfile, 可以放开这些在文件末尾处有被注释的代码：</p>
-<pre><code>config.vm.provision &quot;shell&quot;, inline: &lt;&lt;-SHELL
-    apt-get update
-    apt-get install -y apache2
-SHELL
-</code></pre><p>可以把需要安装的软件应用全部写在里面，在初次 vagrant up 的时候，虚拟机会预先执行这些命令。  </p>
-<p>如果不是初次运行，但又修改了这些命令。则可以进行重载vagrant。  </p>
-<pre><code>$ vagrant reload --provision
-</code></pre><p>也可以把这些配置写在shell脚本里面，让vagrant加载运行这些脚本。因此整个团队可以维护一个 vagrantfile 或者 shell 脚本，把这个文件放在github上，还可以监控它的版本，多么简单和容易啊！哈哈</p>
-<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h2><pre><code>$ vagrant init  # 初始化
-$ vagrant up  # 启动
-$ vagrant halt  # 关闭
-$ vagrant reload  # 重启
-$ vagrant ssh  # ssh
-$ vagrant status  # 查看状态
-$ vagrant destroy  # 销毁
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">vagrant</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">跨平台</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/08/12/跨平台开发环境集中管理化之vagrant/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1408,6 +1378,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
