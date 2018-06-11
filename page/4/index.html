@@ -156,6 +156,84 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-git撤销merge操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/09/18/git撤销merge操作/">git撤销merge操作</a>
+    </h1>
+  
+
+        
+        <a href="/2016/09/18/git撤销merge操作/" class="archive-article-date">
+  	<time datetime="2016-09-18T04:02:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-18</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用git偶尔会遇到merge错代码的情形，这时需要撤销merge的操作。    </p>
+<pre><code>$ git show bb46d15
+</code></pre><p>commit id 是 bb46d15。<br>可以看到merge commit的parents次序。该次序从1开始，想保留哪个parent就指定它的序号。</p>
+<pre><code>$ git revert -m 2 bb46d15
+</code></pre><p>2是想要保留的parent branch序号，其他的parent branch会撤销掉。<br>bb46d15是指定对具体的commit id进行操作。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/09/18/git撤销merge操作/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-跨平台开发环境集中管理化之vagrant" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1215,98 +1293,6 @@ $ rm -rf !(filename)
 
 
   
-    <article id="post-flask-exthook-ExtDeprecationWarning警告的消除" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/17/flask-exthook-ExtDeprecationWarning警告的消除/">flask.exthook.ExtDeprecationWarning警告的消除</a>
-    </h1>
-  
-
-        
-        <a href="/2016/06/17/flask-exthook-ExtDeprecationWarning警告的消除/" class="archive-article-date">
-  	<time datetime="2016-06-17T01:12:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-17</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>flask升级到0.11版后，弃用了以 <strong>flask.ext.xxx</strong> 导入扩展模块的形式，改为 <strong>flask_xxx</strong>。<br>如果仍然沿用原来的形式，flask会报警告flask.exthook.ExtDeprecationWarning。  </p>
-<p>flask团队提供了<a href="https://github.com/pallets/flask-ext-migrate" target="_blank" rel="noopener">flask-ext-migrate</a>的转换工具。  </p>
-<p>pip安装：  </p>
-<pre><code>$ pip install flask-ext-migrate
-</code></pre><p>转换：  </p>
-<pre><code>$ flask_ext_migrate xxx.py
-</code></pre><p><mark>但目前pip上的版本上存在bug，最新的github上fix了这个问题。</mark><br>这个转换工具一次只能转换一个python文件。<br>随便写个shell批量处理吧。  </p>
-<pre><code>$ for f in `find . -name &quot;*.py&quot;`
-&gt; {
-&gt; flask_ext_migrate $f
-&gt; }
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">shell</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">flask-ext-migrate</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/17/flask-exthook-ExtDeprecationWarning警告的消除/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1653,6 +1639,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">multiprocessing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并行</a>
               </li>
              
               <li class="article-tag-list-item">

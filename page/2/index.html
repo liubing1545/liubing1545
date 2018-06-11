@@ -156,6 +156,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-配置gitbucket的webhook触发jenkins自动构建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/20/配置gitbucket的webhook触发jenkins自动构建/">配置gitbucket的webhook触发jenkins自动构建</a>
+    </h1>
+  
+
+        
+        <a href="/2017/11/20/配置gitbucket的webhook触发jenkins自动构建/" class="archive-article-date">
+  	<time datetime="2017-11-20T04:10:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="jenkins安装gitbucket插件"><a href="#jenkins安装gitbucket插件" class="headerlink" title="jenkins安装gitbucket插件"></a>jenkins安装gitbucket插件</h2><p>在jenkins中安装插件:<strong>Gitbucket Plugin</strong><br>安装好了之后配置构建触发器。<br><img src="http://obksgg9lx.bkt.clouddn.com/triggle.png" alt="构建触发器"></p>
+<h2 id="gitbucket设置webhook"><a href="#gitbucket设置webhook" class="headerlink" title="gitbucket设置webhook"></a>gitbucket设置webhook</h2><p>使用root管理员账户进入需要设置webhook的具体项目中Settings-&gt;Service Hooks菜单下，配置gitbucket的webhook。<br><img src="http://obksgg9lx.bkt.clouddn.com/gitbucket.png" alt="配置webhook"></p>
+<h2 id="自动触发"><a href="#自动触发" class="headerlink" title="自动触发"></a>自动触发</h2><p>source提交git。<br><img src="http://obksgg9lx.bkt.clouddn.com/push-status.png" alt="push状态"></p>
+<p>自动触发构建。<br><img src="http://obksgg9lx.bkt.clouddn.com/console.png" alt="自动构建"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">jenkins</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续部署</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">gitbucket</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">webhook</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/11/20/配置gitbucket的webhook触发jenkins自动构建/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-jenkins自动部署docker应用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -963,89 +1052,6 @@ VBoxManage.exe: error: Context: &quot;int __cdecl handleCreate(struct HandlerArg
 
 
   
-    <article id="post-web.py与gunicorn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/07/web.py与gunicorn/">web.py与gunicorn</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/07/web.py与gunicorn/" class="archive-article-date">
-  	<time datetime="2017-07-07T09:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>web.py的application.py模块，主要实现了WSGI兼容的接口，以便应用程序被WSGI应用服务器调用。   </p>
-<h2 id="WSGI接口的实现"><a href="#WSGI接口的实现" class="headerlink" title="WSGI接口的实现"></a>WSGI接口的实现</h2><pre><code>app = web.application(urls, globals())
-application = app.wsgifunc()
-</code></pre><h2 id="Gunicorn-conf的配置"><a href="#Gunicorn-conf的配置" class="headerlink" title="Gunicorn.conf的配置"></a>Gunicorn.conf的配置</h2><pre><code>workers = 3
-bind = &apos;127.0.0.1:8000&apos;
-</code></pre><h2 id="Gunicorn的启动方式"><a href="#Gunicorn的启动方式" class="headerlink" title="Gunicorn的启动方式"></a>Gunicorn的启动方式</h2><pre><code>/$path/bin/gunicorn $filename:application -c /$path/gunicorn.conf
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">web.py</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">gunicorn</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/07/web.py与gunicorn/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1392,6 +1398,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">multiprocessing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并行</a>
               </li>
              
               <li class="article-tag-list-item">

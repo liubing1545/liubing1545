@@ -156,6 +156,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-web.py与gunicorn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/07/web.py与gunicorn/">web.py与gunicorn</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/07/web.py与gunicorn/" class="archive-article-date">
+  	<time datetime="2017-07-07T09:02:35.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>web.py的application.py模块，主要实现了WSGI兼容的接口，以便应用程序被WSGI应用服务器调用。   </p>
+<h2 id="WSGI接口的实现"><a href="#WSGI接口的实现" class="headerlink" title="WSGI接口的实现"></a>WSGI接口的实现</h2><pre><code>app = web.application(urls, globals())
+application = app.wsgifunc()
+</code></pre><h2 id="Gunicorn-conf的配置"><a href="#Gunicorn-conf的配置" class="headerlink" title="Gunicorn.conf的配置"></a>Gunicorn.conf的配置</h2><pre><code>workers = 3
+bind = &apos;127.0.0.1:8000&apos;
+</code></pre><h2 id="Gunicorn的启动方式"><a href="#Gunicorn的启动方式" class="headerlink" title="Gunicorn的启动方式"></a>Gunicorn的启动方式</h2><pre><code>/$path/bin/gunicorn $filename:application -c /$path/gunicorn.conf
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">web.py</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">gunicorn</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/07/web.py与gunicorn/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-supervisor管理服务器进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -954,84 +1037,6 @@ git push origin :refs/tags/tag_name
 
 
   
-    <article id="post-git撤销merge操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/09/18/git撤销merge操作/">git撤销merge操作</a>
-    </h1>
-  
-
-        
-        <a href="/2016/09/18/git撤销merge操作/" class="archive-article-date">
-  	<time datetime="2016-09-18T04:02:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-09-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>使用git偶尔会遇到merge错代码的情形，这时需要撤销merge的操作。    </p>
-<pre><code>$ git show bb46d15
-</code></pre><p>commit id 是 bb46d15。<br>可以看到merge commit的parents次序。该次序从1开始，想保留哪个parent就指定它的序号。</p>
-<pre><code>$ git revert -m 2 bb46d15
-</code></pre><p>2是想要保留的parent branch序号，其他的parent branch会撤销掉。<br>bb46d15是指定对具体的commit id进行操作。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/09/18/git撤销merge操作/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1378,6 +1383,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">multiprocessing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并行</a>
               </li>
              
               <li class="article-tag-list-item">
