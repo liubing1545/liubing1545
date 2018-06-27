@@ -156,6 +156,93 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-构建python的多并发分布式系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/27/构建python的多并发分布式系统/">构建python的多并发分布式系统</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/27/构建python的多并发分布式系统/" class="archive-article-date">
+  	<time datetime="2018-06-27T02:29:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="IO密集型的应对"><a href="#IO密集型的应对" class="headerlink" title="IO密集型的应对"></a>IO密集型的应对</h3><p>我们一直致力于采用flask（纯python编写的轻量级web框架）来构建快速开发的微服务应用，并将其应用于工作中项目中。<br>部署时，采用Gunicorn或者uWSGI作为http服务器，因其支持gevent和monkey_patch，立刻就能使同步的web框架获得数倍的性能提升。（*注 gevent对标准I/O函数做了monkey_patch，把它们变成了异步。并且gevent有greenlet对象能够被用于并发执行。）   </p>
+<h3 id="CPU密集型的应对"><a href="#CPU密集型的应对" class="headerlink" title="CPU密集型的应对"></a>CPU密集型的应对</h3><p>然而真实的应用场景下，无论是CPU密集型运算或者是庞大的I/O操作，都会对服务器主机造成相当大的负担。<br>比如在我们当前的项目里，有一个很重要的模块需要做算法进行复杂的数学运算。在运算过程中服务器会跑满cpu，并且运算时间很长，大概70秒才可以做完一次处理。如果单纯的将http服务器的worker提升至服务器cpu数量，多并发的request数量也会及其有限，并且压上去的request越多，导致阻塞的时间就会越长，不仅用户体验不好，而且超过了nginx配置的最大连接时间，也会报错。（<em>注 如果架构中使用了nginx做反向代理的话）<br>那么我们将问题梳理一下。在CPU密集型应用中，如何提升服务器性能？（</em>注 IO密集型的问题，已经采用了Gunicorn或者uWSGI的http服务器帮我们单纯应对了。）<br>CPU密集型的问题，我们采用了celery，redis（也可以采用rabbitmq)，及multiprocessing来解决。<br>首先我们将CPU密集型的运算从同步处理中拉出来，做成单个的任务模块，扔进消息队列里，然后异步返回给客户端。<br>其次将服务器主机集群都注册成统一的消息中间件和任务结果存储地址。这样在运行过程中可以根据任务的多少，动态的可插拔式的添加分布式系统的节点，或者删除节点。<br>最后对于单节点应用，我们采用了multiporcessing做分核处理，比如单主机单进程一个CPU跑满大概需要70秒，分成4核做并行处理，则会大概花18秒左右跑出结果。<br>这样，基于微服务的可扩展的多并发分布式系统就构建完成了。其他开发语言的拆分过程思想同理。    </p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">celery</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多并发</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">multiprocessing</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/27/构建python的多并发分布式系统/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-npm Error! ENOENT no such file or directory .dezalgo.DELETE&#39;" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -933,89 +1020,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/04/20/git删除所有提交历史记录/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-centos7安装postgresql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/07/centos7安装postgresql/">centos7安装postgresql</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/07/centos7安装postgresql/" class="archive-article-date">
-  	<time datetime="2017-12-07T08:13:46.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="安装启动postgresql"><a href="#安装启动postgresql" class="headerlink" title="安装启动postgresql"></a>安装启动postgresql</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">yum install postgresql-server</span><br><span class="line">service postgresql initdb</span><br><span class="line">service postgresql start</span><br></pre></td></tr></table></figure>
-<h2 id="修改管理员密码"><a href="#修改管理员密码" class="headerlink" title="修改管理员密码"></a>修改管理员密码</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">su - postgres</span><br><span class="line">psql</span><br><span class="line"><span class="meta">$</span> ALTER USER postgres WITH PASSWORD 'postgres';</span><br></pre></td></tr></table></figure>
-<h2 id="配置远程访问"><a href="#配置远程访问" class="headerlink" title="配置远程访问"></a>配置远程访问</h2><p>修改<strong>/var/lib/pgsql/data/postgresql.conf</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">listen_addresses = '*'</span><br></pre></td></tr></table></figure></p>
-<p>修改客户端认证配置文件<strong>/var/lib/pgsql/data/pg_hba.conf</strong>,添加</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">host  all  all   10.0.0.0/8  md5</span><br></pre></td></tr></table></figure>
-<h2 id="重启服务"><a href="#重启服务" class="headerlink" title="重启服务"></a>重启服务</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">service postgresql restart</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">centos7</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">postgresql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/07/centos7安装postgresql/">展开全文 >></a>
         </p>
       
 
