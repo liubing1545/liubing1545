@@ -156,6 +156,90 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-git删除所有提交历史记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/20/git删除所有提交历史记录/">git删除所有提交历史记录</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/20/git删除所有提交历史记录/" class="archive-article-date">
+  	<time datetime="2018-04-20T02:53:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="checkout"><a href="#checkout" class="headerlink" title="checkout"></a>checkout</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout --orphan latest_branch</span><br></pre></td></tr></table></figure>
+<h2 id="添加所有文件"><a href="#添加所有文件" class="headerlink" title="添加所有文件"></a>添加所有文件</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br></pre></td></tr></table></figure>
+<p>   ​</p>
+<h2 id="提交变更"><a href="#提交变更" class="headerlink" title="提交变更"></a>提交变更</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am "something about message"</span><br></pre></td></tr></table></figure>
+<p>   ​</p>
+<h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D master</span><br></pre></td></tr></table></figure>
+<p>   ​</p>
+<h2 id="重命名当前branch为目标名"><a href="#重命名当前branch为目标名" class="headerlink" title="重命名当前branch为目标名"></a>重命名当前branch为目标名</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m master</span><br></pre></td></tr></table></figure>
+<p>   ​</p>
+<h2 id="强制push"><a href="#强制push" class="headerlink" title="强制push"></a>强制push</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -f origin master</span><br></pre></td></tr></table></figure>
+<p>   ​</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/20/git删除所有提交历史记录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-centos7安装postgresql" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -951,89 +1035,6 @@
 
 
   
-    <article id="post-docker创建私有仓库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/24/docker创建私有仓库/">docker创建私有仓库</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/24/docker创建私有仓库/" class="archive-article-date">
-  	<time datetime="2017-07-24T08:50:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="拉取registry的镜像"><a href="#拉取registry的镜像" class="headerlink" title="拉取registry的镜像"></a>拉取registry的镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry:2.1.1</span><br></pre></td></tr></table></figure>
-<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -v /root/compose-docker-registry:/var/lib/registry -p 5000:5000 --restart=always --name registry2 --privileged registry:2.1.1</span><br></pre></td></tr></table></figure>
-<h2 id="打包镜像push到本地仓库"><a href="#打包镜像push到本地仓库" class="headerlink" title="打包镜像push到本地仓库"></a>打包镜像push到本地仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag postgres $registry-address:5000/postgres</span><br><span class="line">docker push $registry-address:5000/postgres</span><br></pre></td></tr></table></figure>
-<h2 id="list仓库中的镜像"><a href="#list仓库中的镜像" class="headerlink" title="list仓库中的镜像"></a>list仓库中的镜像</h2><p>在client端执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://$registry-address:5000/v2/_catalog</span><br></pre></td></tr></table></figure></p>
-<h2 id="可能问题"><a href="#可能问题" class="headerlink" title="可能问题"></a>可能问题</h2><h4 id="docker-received-unexpected-HTTP-status-501-Not-Implemented"><a href="#docker-received-unexpected-HTTP-status-501-Not-Implemented" class="headerlink" title="docker received unexpected HTTP status:501 Not Implemented"></a>docker received unexpected HTTP status:501 Not Implemented</h4><p>这个问题是client端配置了docker的http-proxy，没有将docker的私有仓库registry所在ip设为例外导致的。</p>
-<h4 id="server-gave-HTTP-response-to-HTTPS-client"><a href="#server-gave-HTTP-response-to-HTTPS-client" class="headerlink" title="server gave HTTP response to HTTPS client"></a>server gave HTTP response to HTTPS client</h4><p>registry默认的是https协议，因此需要在client端配置insecure-registries。<br>我的docker版本是1.12.1，配置文件是/etc/docker/daemon.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;insecure-registries&quot;:[&quot;$registry-address:5000&quot;]&#125;</span><br></pre></td></tr></table></figure></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">registry</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/24/docker创建私有仓库/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1428,6 +1429,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
             
             <div class="clearfix"></div>

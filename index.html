@@ -156,6 +156,101 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-区块链入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/13/区块链入门/">区块链入门</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/13/区块链入门/" class="archive-article-date">
+  	<time datetime="2018-10-13T07:19:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="区块链的特点"><a href="#区块链的特点" class="headerlink" title="区块链的特点"></a>区块链的特点</h2><ul>
+<li>匿名</li>
+<li>不可篡改和加密安全性</li>
+<li>无须信任系统</li>
+<li>分布式去中心化</li>
+<li>交易透明</li>
+</ul>
+<h2 id="以太坊"><a href="#以太坊" class="headerlink" title="以太坊"></a>以太坊</h2><p>以太坊=区块链技术+智能合约</p>
+<h2 id="智能合约"><a href="#智能合约" class="headerlink" title="智能合约"></a>智能合约</h2><p>智能合约可以是一个众筹合约，也可以是一个数学公式，或者是一个完全的随机数。</p>
+<h3 id="智能合约实践"><a href="#智能合约实践" class="headerlink" title="智能合约实践"></a>智能合约实践</h3><h4 id="browser-solidity"><a href="#browser-solidity" class="headerlink" title="browser-solidity"></a>browser-solidity</h4><p><a href="https://ethereum.github.io/browser-solidity/#version=soljson-v0.4.9+commit.364da425.js" target="_blank" rel="noopener">官网</a></p>
+<h4 id="最简单的智能合约"><a href="#最简单的智能合约" class="headerlink" title="最简单的智能合约"></a>最简单的智能合约</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">pragma solidity <span class="number">0.4</span><span class="number">.9</span>;</span><br><span class="line">contract DemoTypes &#123;</span><br><span class="line">    <span class="function"><span class="keyword">function</span> <span class="title">f</span>(<span class="params">uint a</span>) <span class="title">returns</span> (<span class="params">uint b</span>) </span>&#123;</span><br><span class="line">    uint result = a * <span class="number">8</span>;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>※目前使用的solidity版本是0.4.9<br><img src="http://obksgg9lx.bkt.clouddn.com/solidity-simple.png" alt="solidity-simple"></p>
+<ol>
+<li>点击create会将智能合约部署到区块链的网络上（内存上）</li>
+<li>trasaction/execution cost代表create一个智能合约所消耗的成本，单位为gas。gas和ether币有一个兑换关系。</li>
+<li>合约名字DemoTypes注册在了一个地址上，则说明该合约已被挖矿出来了。</li>
+<li>输入100，点击f按钮，进行计算得800。</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">区块链</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">智能合约</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/13/区块链入门/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-构建python的多并发分布式系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -772,110 +867,6 @@
 
 
   
-    <article id="post-利用AppVeyor做GithubIO的CI" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/24/利用AppVeyor做GithubIO的CI/">利用AppVeyor做GithubIO的CI</a>
-    </h1>
-  
-
-        
-        <a href="/2018/04/24/利用AppVeyor做GithubIO的CI/" class="archive-article-date">
-  	<time datetime="2018-04-24T03:45:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="建立两个仓库"><a href="#建立两个仓库" class="headerlink" title="建立两个仓库"></a>建立两个仓库</h2><p>我基于hexo搭建的github.io，在更换电脑时无法随意的提交blog。（因每个机器都需要部署node+hexo的环境）<br>于是，我将我的github.io建立两个仓库。</p>
-<ul>
-<li>master仓库（hexo generate后生成的html等文件）</li>
-<li>hexo仓库（原始文件，包含md文档及主题等）</li>
-</ul>
-<p>并将hexo仓库设置为这个repo的主仓库。</p>
-<h2 id="AppVeyor"><a href="#AppVeyor" class="headerlink" title="AppVeyor"></a>AppVeyor</h2><p><a href="https://www.appveyor.com/" target="_blank" rel="noopener">appveyor</a>是支持windows OS做CI的持续集成工具，可以使用GitHub账号登陆。绑定我的github.io项目。</p>
-<h4 id="添加appveyor-yml到Source-Repo"><a href="#添加appveyor-yml到Source-Repo" class="headerlink" title="添加appveyor.yml到Source Repo"></a>添加appveyor.yml到Source Repo</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">clone_depth:</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line"><span class="attr">  access_token:</span></span><br><span class="line"><span class="attr">    secure:</span> <span class="string">[Your</span> <span class="string">Github</span> <span class="string">Access</span> <span class="string">Token]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="attr">  - ps:</span> <span class="string">Install-Product</span> <span class="string">node</span> <span class="number">6</span> <span class="comment">#因为我的hexo是3.71的版本，因此需要安装node 6</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">node</span> <span class="bullet">--version</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="bullet">--version</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="bullet">-g</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">build_script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line"></span><br><span class="line"><span class="attr">artifacts:</span></span><br><span class="line"><span class="attr">  - path:</span> <span class="string">public</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on_success:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">credential.helper</span> <span class="string">store</span></span><br><span class="line"><span class="attr">  - ps:</span> <span class="string">Add-Content</span> <span class="string">"$env:USERPROFILE\.git-credentials"</span> <span class="string">"https://$($env:access_token):x-oauth-basic@github.com`n"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.email</span> <span class="string">"%GIT_USER_EMAIL%"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.name</span> <span class="string">"%GIT_USER_NAME%"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">clone</span> <span class="bullet">--depth</span> <span class="number">5</span> <span class="bullet">-q</span> <span class="bullet">--branch=%TARGET_BRANCH%</span> <span class="string">%STATIC_SITE_REPO%</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">cd</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">del</span> <span class="string">*</span> <span class="string">/f</span> <span class="string">/q</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">for</span> <span class="string">/d</span> <span class="string">%%p</span> <span class="string">IN</span> <span class="string">(*)</span> <span class="string">do</span> <span class="string">rmdir</span> <span class="string">"%%p"</span> <span class="string">/s</span> <span class="string">/q</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">SETLOCAL</span> <span class="string">EnableDelayedExpansion</span> <span class="string">&amp;</span> <span class="string">robocopy</span> <span class="string">"%APPVEYOR_BUILD_FOLDER%\public"</span> <span class="string">"%TEMP%\static-site"</span> <span class="string">/e</span> <span class="string">&amp;</span> <span class="string">IF</span> <span class="string">!ERRORLEVEL!</span> <span class="string">EQU</span> <span class="number">1</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(IF</span> <span class="string">!ERRORLEVEL!</span> <span class="string">EQU</span> <span class="number">3</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(exit</span> <span class="number">1</span><span class="string">))</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">add</span> <span class="bullet">-A</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">commit</span> <span class="bullet">-m</span> <span class="string">"Update Static Site"</span> <span class="string">&amp;&amp;</span> <span class="string">git</span> <span class="string">push</span> <span class="string">origin</span> <span class="string">%TARGET_BRANCH%</span> <span class="string">&amp;&amp;</span> <span class="string">appveyor</span> <span class="string">AddMessage</span> <span class="string">"Static Site Updated"</span></span><br></pre></td></tr></table></figure>
-<p>在GitHub生成好Access Token之后，你需要到<a href="https://ci.appveyor.com/tools/encrypt" target="_blank" rel="noopener">AppVeyor加密页面</a>把Access Token加密之后再替换[Your GitHub Access Token]。<br><img src="http://obksgg9lx.bkt.clouddn.com/github-access-token.png" alt="github-access-token"><br><img src="http://obksgg9lx.bkt.clouddn.com/github-webhook.png" alt="github-webhook"></p>
-<h4 id="设置Appveyor的settings"><a href="#设置Appveyor的settings" class="headerlink" title="设置Appveyor的settings"></a>设置Appveyor的settings</h4><p><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-setting1-.jpg" alt="appveyor-setting1"><br>在Appveyor Settings的Environment里设置以下四个变量。STATIC_SITE_REPO就是github Repo的地址，TARGET_BRANCH是Repo的目标branch（这里是master，相当于提交编译后的html等文件至master），GIT_USER_EMAIL和GIT_USER_NAME就是你GitHub账号的信息。<br><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-setting2-.jpg" alt="appveyor-setting2"><br>在Appveyor Settings的build里默认是MSBUILD，因为是appveyor.yml中配置的脚本来build的，因此这里改成SCRIPT。<br><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-setting3.png" alt="appveyor-setting3"></p>
-<h2 id="整体逻辑"><a href="#整体逻辑" class="headerlink" title="整体逻辑"></a>整体逻辑</h2><p>本地在hexo的分支下写md文档，提交至github上，触发AppVeyor的webhook，AppVeyor会git clone下hexo的最新代码，并且build成目标文件，将目标文件push至master分支。则完成了整体刷新页面，持续部署的工作了。<br>可以在线监控build的状况：<br><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-build-log.png" alt="appveyor-build-log"></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续集成</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CI</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续部署</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AppVeyor</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/24/利用AppVeyor做GithubIO的CI/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-为Jupyter Notebook添加目录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -965,37 +956,37 @@
 
 
   
-    <article id="post-git删除所有提交历史记录" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-利用AppVeyor做GithubIO的CI" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/20/git删除所有提交历史记录/">git删除所有提交历史记录</a>
+      <a class="article-title" href="/2018/04/24/利用AppVeyor做GithubIO的CI/">利用AppVeyor做GithubIO的CI</a>
     </h1>
   
 
         
-        <a href="/2018/04/20/git删除所有提交历史记录/" class="archive-article-date">
-  	<time datetime="2018-04-20T02:53:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-20</time>
+        <a href="/2018/04/24/利用AppVeyor做GithubIO的CI/" class="archive-article-date">
+  	<time datetime="2018-04-24T03:45:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-24</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="checkout"><a href="#checkout" class="headerlink" title="checkout"></a>checkout</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git checkout --orphan latest_branch</span><br></pre></td></tr></table></figure>
-<h2 id="添加所有文件"><a href="#添加所有文件" class="headerlink" title="添加所有文件"></a>添加所有文件</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git add -A</span><br></pre></td></tr></table></figure>
-<p>   ​</p>
-<h2 id="提交变更"><a href="#提交变更" class="headerlink" title="提交变更"></a>提交变更</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit -am "something about message"</span><br></pre></td></tr></table></figure>
-<p>   ​</p>
-<h2 id="删除分支"><a href="#删除分支" class="headerlink" title="删除分支"></a>删除分支</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -D master</span><br></pre></td></tr></table></figure>
-<p>   ​</p>
-<h2 id="重命名当前branch为目标名"><a href="#重命名当前branch为目标名" class="headerlink" title="重命名当前branch为目标名"></a>重命名当前branch为目标名</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git branch -m master</span><br></pre></td></tr></table></figure>
-<p>   ​</p>
-<h2 id="强制push"><a href="#强制push" class="headerlink" title="强制push"></a>强制push</h2>   <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push -f origin master</span><br></pre></td></tr></table></figure>
-<p>   ​</p>
+        <h2 id="建立两个仓库"><a href="#建立两个仓库" class="headerlink" title="建立两个仓库"></a>建立两个仓库</h2><p>我基于hexo搭建的github.io，在更换电脑时无法随意的提交blog。（因每个机器都需要部署node+hexo的环境）<br>于是，我将我的github.io建立两个仓库。</p>
+<ul>
+<li>master仓库（hexo generate后生成的html等文件）</li>
+<li>hexo仓库（原始文件，包含md文档及主题等）</li>
+</ul>
+<p>并将hexo仓库设置为这个repo的主仓库。</p>
+<h2 id="AppVeyor"><a href="#AppVeyor" class="headerlink" title="AppVeyor"></a>AppVeyor</h2><p><a href="https://www.appveyor.com/" target="_blank" rel="noopener">appveyor</a>是支持windows OS做CI的持续集成工具，可以使用GitHub账号登陆。绑定我的github.io项目。</p>
+<h4 id="添加appveyor-yml到Source-Repo"><a href="#添加appveyor-yml到Source-Repo" class="headerlink" title="添加appveyor.yml到Source Repo"></a>添加appveyor.yml到Source Repo</h4><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">clone_depth:</span> <span class="number">5</span></span><br><span class="line"></span><br><span class="line"><span class="attr">environment:</span></span><br><span class="line"><span class="attr">  access_token:</span></span><br><span class="line"><span class="attr">    secure:</span> <span class="string">[Your</span> <span class="string">Github</span> <span class="string">Access</span> <span class="string">Token]</span></span><br><span class="line"></span><br><span class="line"><span class="attr">install:</span></span><br><span class="line"><span class="attr">  - ps:</span> <span class="string">Install-Product</span> <span class="string">node</span> <span class="number">6</span> <span class="comment">#因为我的hexo是3.71的版本，因此需要安装node 6</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">node</span> <span class="bullet">--version</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="bullet">--version</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="string">install</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">npm</span> <span class="string">install</span> <span class="string">hexo-cli</span> <span class="bullet">-g</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="attr">build_script:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">hexo</span> <span class="string">generate</span></span><br><span class="line"></span><br><span class="line"><span class="attr">artifacts:</span></span><br><span class="line"><span class="attr">  - path:</span> <span class="string">public</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on_success:</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">credential.helper</span> <span class="string">store</span></span><br><span class="line"><span class="attr">  - ps:</span> <span class="string">Add-Content</span> <span class="string">"$env:USERPROFILE\.git-credentials"</span> <span class="string">"https://$($env:access_token):x-oauth-basic@github.com`n"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.email</span> <span class="string">"%GIT_USER_EMAIL%"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">config</span> <span class="bullet">--global</span> <span class="string">user.name</span> <span class="string">"%GIT_USER_NAME%"</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">clone</span> <span class="bullet">--depth</span> <span class="number">5</span> <span class="bullet">-q</span> <span class="bullet">--branch=%TARGET_BRANCH%</span> <span class="string">%STATIC_SITE_REPO%</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">cd</span> <span class="string">%TEMP%\static-site</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">del</span> <span class="string">*</span> <span class="string">/f</span> <span class="string">/q</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">for</span> <span class="string">/d</span> <span class="string">%%p</span> <span class="string">IN</span> <span class="string">(*)</span> <span class="string">do</span> <span class="string">rmdir</span> <span class="string">"%%p"</span> <span class="string">/s</span> <span class="string">/q</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">SETLOCAL</span> <span class="string">EnableDelayedExpansion</span> <span class="string">&amp;</span> <span class="string">robocopy</span> <span class="string">"%APPVEYOR_BUILD_FOLDER%\public"</span> <span class="string">"%TEMP%\static-site"</span> <span class="string">/e</span> <span class="string">&amp;</span> <span class="string">IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">1</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(IF</span> <span class="type">!ERRORLEVEL</span><span class="string">!</span> <span class="string">EQU</span> <span class="number">3</span> <span class="string">(exit</span> <span class="number">0</span><span class="string">)</span> <span class="string">ELSE</span> <span class="string">(exit</span> <span class="number">1</span><span class="string">))</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">add</span> <span class="bullet">-A</span></span><br><span class="line"><span class="bullet">  -</span> <span class="string">git</span> <span class="string">commit</span> <span class="bullet">-m</span> <span class="string">"Update Static Site"</span> <span class="string">&amp;&amp;</span> <span class="string">git</span> <span class="string">push</span> <span class="string">origin</span> <span class="string">%TARGET_BRANCH%</span> <span class="string">&amp;&amp;</span> <span class="string">appveyor</span> <span class="string">AddMessage</span> <span class="string">"Static Site Updated"</span></span><br></pre></td></tr></table></figure>
+<p>在GitHub生成好Access Token之后，你需要到<a href="https://ci.appveyor.com/tools/encrypt" target="_blank" rel="noopener">AppVeyor加密页面</a>把Access Token加密之后再替换[Your GitHub Access Token]。<br><img src="http://obksgg9lx.bkt.clouddn.com/github-access-token.png" alt="github-access-token"><br><img src="http://obksgg9lx.bkt.clouddn.com/github-webhook.png" alt="github-webhook"></p>
+<h4 id="设置Appveyor的settings"><a href="#设置Appveyor的settings" class="headerlink" title="设置Appveyor的settings"></a>设置Appveyor的settings</h4><p><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-setting1-.jpg" alt="appveyor-setting1"><br>在Appveyor Settings的Environment里设置以下四个变量。STATIC_SITE_REPO就是github Repo的地址，TARGET_BRANCH是Repo的目标branch（这里是master，相当于提交编译后的html等文件至master），GIT_USER_EMAIL和GIT_USER_NAME就是你GitHub账号的信息。<br><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-setting2-.jpg" alt="appveyor-setting2"><br>在Appveyor Settings的build里默认是MSBUILD，因为是appveyor.yml中配置的脚本来build的，因此这里改成SCRIPT。<br><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-setting3.png" alt="appveyor-setting3"></p>
+<h2 id="整体逻辑"><a href="#整体逻辑" class="headerlink" title="整体逻辑"></a>整体逻辑</h2><p>本地在hexo的分支下写md文档，提交至github上，触发AppVeyor的webhook，AppVeyor会git clone下hexo的最新代码，并且build成目标文件，将目标文件push至master分支。则完成了整体刷新页面，持续部署的工作了。<br>可以在线监控build的状况：<br><img src="http://obksgg9lx.bkt.clouddn.com/appveyor-build-log.png" alt="appveyor-build-log"></p>
 
       
 
@@ -1009,7 +1000,27 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续集成</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">CI</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">持续部署</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">AppVeyor</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">github</a>
         		</li>
       		
 		</ul>
@@ -1019,7 +1030,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/20/git删除所有提交历史记录/">展开全文 >></a>
+          <a class="article-more-a" href="/2018/04/24/利用AppVeyor做GithubIO的CI/">展开全文 >></a>
         </p>
       
 
@@ -1443,6 +1454,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
             
             <div class="clearfix"></div>

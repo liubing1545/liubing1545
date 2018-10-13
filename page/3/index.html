@@ -156,6 +156,89 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-docker创建私有仓库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/24/docker创建私有仓库/">docker创建私有仓库</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/24/docker创建私有仓库/" class="archive-article-date">
+  	<time datetime="2017-07-24T08:50:48.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="拉取registry的镜像"><a href="#拉取registry的镜像" class="headerlink" title="拉取registry的镜像"></a>拉取registry的镜像</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull registry:2.1.1</span><br></pre></td></tr></table></figure>
+<h2 id="启动容器"><a href="#启动容器" class="headerlink" title="启动容器"></a>启动容器</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -v /root/compose-docker-registry:/var/lib/registry -p 5000:5000 --restart=always --name registry2 --privileged registry:2.1.1</span><br></pre></td></tr></table></figure>
+<h2 id="打包镜像push到本地仓库"><a href="#打包镜像push到本地仓库" class="headerlink" title="打包镜像push到本地仓库"></a>打包镜像push到本地仓库</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker tag postgres $registry-address:5000/postgres</span><br><span class="line">docker push $registry-address:5000/postgres</span><br></pre></td></tr></table></figure>
+<h2 id="list仓库中的镜像"><a href="#list仓库中的镜像" class="headerlink" title="list仓库中的镜像"></a>list仓库中的镜像</h2><p>在client端执行<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -XGET http://$registry-address:5000/v2/_catalog</span><br></pre></td></tr></table></figure></p>
+<h2 id="可能问题"><a href="#可能问题" class="headerlink" title="可能问题"></a>可能问题</h2><h4 id="docker-received-unexpected-HTTP-status-501-Not-Implemented"><a href="#docker-received-unexpected-HTTP-status-501-Not-Implemented" class="headerlink" title="docker received unexpected HTTP status:501 Not Implemented"></a>docker received unexpected HTTP status:501 Not Implemented</h4><p>这个问题是client端配置了docker的http-proxy，没有将docker的私有仓库registry所在ip设为例外导致的。</p>
+<h4 id="server-gave-HTTP-response-to-HTTPS-client"><a href="#server-gave-HTTP-response-to-HTTPS-client" class="headerlink" title="server gave HTTP response to HTTPS client"></a>server gave HTTP response to HTTPS client</h4><p>registry默认的是https协议，因此需要在client端配置insecure-registries。<br>我的docker版本是1.12.1，配置文件是/etc/docker/daemon.json<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;&quot;insecure-registries&quot;:[&quot;$registry-address:5000&quot;]&#125;</span><br></pre></td></tr></table></figure></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">registry</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/24/docker创建私有仓库/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-win10启动vagrant" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -945,118 +1028,6 @@ $df -h
 
 
   
-    <article id="post-搭建gitbucket的docker环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/12/27/搭建gitbucket的docker环境/">搭建gitbucket的docker环境</a>
-    </h1>
-  
-
-        
-        <a href="/2016/12/27/搭建gitbucket的docker环境/" class="archive-article-date">
-  	<time datetime="2016-12-27T05:49:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>为了更方便简洁的部署各种服务器应用，我在社内环境安装了docker。<br>从社内直连github有时极不稳定。社内团队协同开发，搭建本地的git仓库，我选择搭建gitbucket。  </p>
-<pre><code>$ docker search gitbucket
-</code></pre><p>虽然没有docker官方放出的gitbucket镜像，但从列表里选stars最多也算靠谱点儿吧。  </p>
-<pre><code>$ docker pull f99aq8ove/gitbucket
-</code></pre><p>github也不网络稳定啊。。。下载两次都失败，寻找国内的镜像找到了daocloud。去daocloud官网去注册一下，然后配置docker加速器。  </p>
-<pre><code>$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://5706b345.m.daocloud.io
-</code></pre><p>该脚本可以将 –registry-mirror 加入到你的docker配置文件 /etc/default/docker 中。</p>
-<p>配置好了之后，再次docker pull。成功！<br>启动镜像。  </p>
-<pre><code>$ docker run -d -p 8080:8080 -p 29418:29418 -v ${PWD}/gitbucket-data:/gitbucket f99aq8ove/gitbucket
-</code></pre><p>配置了映射端口8080是gitbucket的网页入口，映射端口29418是ssh的端口。<br>正常启动后，通过网页打开，显示正常。<br>创建用户组，创建新的repository。<br>在客户端local创建开发环境。  </p>
-<pre><code>$ mkdir xxxdir
-$ cd xxxdir
-$ touch README.md
-$ git add .
-$ git commit -m &quot;first commit&quot;
-$ git remote add origin [URL]
-$ git push origin master
-</code></pre><p>在进行push的时候，失败了，报错如下。  </p>
-<pre><code>fatal: unable to access &apos;http://xxx.git/&apos;: The requested URL returned error: 503
-</code></pre><p>查了一下，有可能是在gitbucket服务器之前，设置了http代理所导致的。设置git http操作的debug。  </p>
-<pre><code>$ export GIT_CURL_VERBOSE = 1
-</code></pre><p>再次git push查看，的确有从http代理向gitbucket服务器发出的请求。但我不知道在哪里配置了http代理了。。。<br>使用git config命令查看配置文件  </p>
-<p>查看仓库级的config  </p>
-<pre><code>$ git config -local -l
-</code></pre><p>查看全局级的config</p>
-<pre><code>$ git config -global -l
-</code></pre><p>查看系统级的config</p>
-<pre><code>$ git config -system -l
-</code></pre><p>查看当前生效的配置</p>
-<pre><code>$ git config -l
-</code></pre><p>ok！将设置的http代理全部注释掉，git push成功啦！<br>社内gitbucket搭建成功！</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">gitbucket</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/12/27/搭建gitbucket的docker环境/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
@@ -1451,6 +1422,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
             
             <div class="clearfix"></div>

@@ -156,6 +156,118 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-搭建gitbucket的docker环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/12/27/搭建gitbucket的docker环境/">搭建gitbucket的docker环境</a>
+    </h1>
+  
+
+        
+        <a href="/2016/12/27/搭建gitbucket的docker环境/" class="archive-article-date">
+  	<time datetime="2016-12-27T05:49:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>为了更方便简洁的部署各种服务器应用，我在社内环境安装了docker。<br>从社内直连github有时极不稳定。社内团队协同开发，搭建本地的git仓库，我选择搭建gitbucket。  </p>
+<pre><code>$ docker search gitbucket
+</code></pre><p>虽然没有docker官方放出的gitbucket镜像，但从列表里选stars最多也算靠谱点儿吧。  </p>
+<pre><code>$ docker pull f99aq8ove/gitbucket
+</code></pre><p>github也不网络稳定啊。。。下载两次都失败，寻找国内的镜像找到了daocloud。去daocloud官网去注册一下，然后配置docker加速器。  </p>
+<pre><code>$ curl -sSL https://get.daocloud.io/daotools/set_mirror.sh | sh -s http://5706b345.m.daocloud.io
+</code></pre><p>该脚本可以将 –registry-mirror 加入到你的docker配置文件 /etc/default/docker 中。</p>
+<p>配置好了之后，再次docker pull。成功！<br>启动镜像。  </p>
+<pre><code>$ docker run -d -p 8080:8080 -p 29418:29418 -v ${PWD}/gitbucket-data:/gitbucket f99aq8ove/gitbucket
+</code></pre><p>配置了映射端口8080是gitbucket的网页入口，映射端口29418是ssh的端口。<br>正常启动后，通过网页打开，显示正常。<br>创建用户组，创建新的repository。<br>在客户端local创建开发环境。  </p>
+<pre><code>$ mkdir xxxdir
+$ cd xxxdir
+$ touch README.md
+$ git add .
+$ git commit -m &quot;first commit&quot;
+$ git remote add origin [URL]
+$ git push origin master
+</code></pre><p>在进行push的时候，失败了，报错如下。  </p>
+<pre><code>fatal: unable to access &apos;http://xxx.git/&apos;: The requested URL returned error: 503
+</code></pre><p>查了一下，有可能是在gitbucket服务器之前，设置了http代理所导致的。设置git http操作的debug。  </p>
+<pre><code>$ export GIT_CURL_VERBOSE = 1
+</code></pre><p>再次git push查看，的确有从http代理向gitbucket服务器发出的请求。但我不知道在哪里配置了http代理了。。。<br>使用git config命令查看配置文件  </p>
+<p>查看仓库级的config  </p>
+<pre><code>$ git config -local -l
+</code></pre><p>查看全局级的config</p>
+<pre><code>$ git config -global -l
+</code></pre><p>查看系统级的config</p>
+<pre><code>$ git config -system -l
+</code></pre><p>查看当前生效的配置</p>
+<pre><code>$ git config -l
+</code></pre><p>ok！将设置的http代理全部注释掉，git push成功啦！<br>社内gitbucket搭建成功！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">gitbucket</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/12/27/搭建gitbucket的docker环境/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-git删除tag" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1206,94 +1318,6 @@ $ sudo npm install -g react-native-cli
 
 
   
-    <article id="post-js七牛上传实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/24/js七牛上传实践/">js七牛上传实践</a>
-    </h1>
-  
-
-        
-        <a href="/2016/06/24/js七牛上传实践/" class="archive-article-date">
-  	<time datetime="2016-06-24T09:22:14.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-24</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <ul>
-<li>七牛有免费的配额可以使用，在测试开发时，将图片，视频流等多种媒体文件可以上传到七牛上。  </li>
-<li>其次，七牛可以绕过搭载应用的server，手机端或者pc端可以直接上传下载媒体资源至七牛云。只是在上传时，需要先向应用server要求访问七牛的token，拿到这个token后直接与七牛交互。  </li>
-<li>最后，七牛云支持cdn加速，即使对成熟的应用来说，也是不错的选择。 </li>
-</ul>
-<p><img src="http://developer.qiniu.com/article/developer/img/upload-with-callback.png" alt="七牛"></p>
-<p>下面讲解flask作为业务服务器，进行七牛云存储的过程。  </p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">七牛</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/24/js七牛上传实践/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1688,6 +1712,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">requests</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
             
             <div class="clearfix"></div>
