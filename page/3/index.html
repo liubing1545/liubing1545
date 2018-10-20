@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://liubing.com">
   <title>Bad Seeds</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -33,7 +33,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -156,7 +156,88 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-docker创建私有仓库" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-docker设置http代理" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/24/docker设置http代理/">docker设置http代理</a>
+    </h1>
+  
+
+        
+        <a href="/2017/07/24/docker设置http代理/" class="archive-article-date">
+  	<time datetime="2017-07-24T08:51:51.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h4 id="创建目录"><a href="#创建目录" class="headerlink" title="创建目录"></a>创建目录</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mkdir /etc/systemd/system/docker.service.d</span><br></pre></td></tr></table></figure>
+<h4 id="创建http-proxy-conf文件"><a href="#创建http-proxy-conf文件" class="headerlink" title="创建http-proxy.conf文件"></a>创建http-proxy.conf文件</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">touch /etc/systemd/system/docker.service.d/http-proxy.conf</span><br></pre></td></tr></table></figure>
+<h4 id="在http-proxy-conf文件中记入"><a href="#在http-proxy-conf文件中记入" class="headerlink" title="在http-proxy.conf文件中记入"></a>在http-proxy.conf文件中记入</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=&quot;HTTP_PROXY=http://username:passwd@hostname:port/&quot; &quot;NO_PROXY=localhost,127.0.0.1&quot;</span><br></pre></td></tr></table></figure>
+<h4 id="reload配置及重启docker服务"><a href="#reload配置及重启docker服务" class="headerlink" title="reload配置及重启docker服务"></a>reload配置及重启docker服务</h4><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl show docker --property Environment</span><br><span class="line">systemctl restart docker.service</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">proxy</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/07/24/docker设置http代理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-docker创建私有仓库" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -239,7 +320,7 @@
 
 
   
-    <article id="post-win10启动vagrant" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-win10启动vagrant" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -340,7 +421,7 @@ VBoxManage.exe: error: Context: &quot;int __cdecl handleCreate(struct HandlerArg
 
 
   
-    <article id="post-web.py与gunicorn" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-web.py与gunicorn" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -423,7 +504,7 @@ bind = &apos;127.0.0.1:8000&apos;
 
 
   
-    <article id="post-supervisor管理服务器进程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-supervisor管理服务器进程" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -507,7 +588,7 @@ bind = &apos;127.0.0.1:8000&apos;
 
 
   
-    <article id="post-Write-failed-Broken-pipe" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-Write-failed-Broken-pipe" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -583,7 +664,7 @@ bind = &apos;127.0.0.1:8000&apos;
 
 
   
-    <article id="post-docker容器启动iptables报错" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-docker容器启动iptables报错" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -664,7 +745,7 @@ bind = &apos;127.0.0.1:8000&apos;
 
 
   
-    <article id="post-java工程启动No-Route-to-host" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-java工程启动No-Route-to-host" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -760,7 +841,7 @@ bind = &apos;127.0.0.1:8000&apos;
 
 
   
-    <article id="post-docker部署" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-docker部署" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -848,7 +929,7 @@ bind = &apos;127.0.0.1:8000&apos;
 
 
   
-    <article id="post-YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -895,110 +976,6 @@ bind = &apos;127.0.0.1:8000&apos;
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2017/03/28/YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-linux虚拟机磁盘扩容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/03/28/linux虚拟机磁盘扩容/">linux虚拟机磁盘扩容</a>
-    </h1>
-  
-
-        
-        <a href="/2017/03/28/linux虚拟机磁盘扩容/" class="archive-article-date">
-  	<time datetime="2017-03-28T10:04:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="问题点"><a href="#问题点" class="headerlink" title="问题点"></a>问题点</h3><p>安装了centos7的虚拟机，yum update时报错空间不足 <strong>No space left on device</strong>。</p>
-<h3 id="VBoxManage-modifyhd"><a href="#VBoxManage-modifyhd" class="headerlink" title="VBoxManage modifyhd"></a>VBoxManage modifyhd</h3><p>在宿主机上的安装virtualBox的根目录执行resize命令进行扩容:    </p>
-<pre><code>C:\Program Files\Oracle\VirtualBox&gt;VBoxManage modifyhd E:\dockerVM\dockerVM.vdi --resize 35000
-</code></pre><h3 id="CentOS的LVM管理"><a href="#CentOS的LVM管理" class="headerlink" title="CentOS的LVM管理"></a>CentOS的LVM管理</h3><p>查看磁盘状况</p>
-<pre><code>$ fdisk -l /dev/sda
-</code></pre><p>将空余磁盘创建为SDA3</p>
-<pre><code>$ fdisk /dev/sda
-n {new partition}
-p {primary partition}
-3 {partition number}
-
-t {change partition id}
-3 {partition number}
-8e {linux LVM partition}
-w
-</code></pre><p>重启虚拟机</p>
-<pre><code>$reboot
-</code></pre><p>查看当前Volume group</p>
-<pre><code>$ vgdisplay
-</code></pre><p>创建/dev/sda3，根据VG Name:[centos]，扩展LVM的逻辑卷</p>
-<pre><code>$ lvscan
-$ pvcreate /dev/sda3
-$ vgextend /dev/centos/root /dev/sda3
-</code></pre><p>调整逻辑卷文件系统的大小</p>
-<pre><code>$ xfs_growfs /dev/centos/root
-$df -h
-</code></pre><p>OK了！</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">磁盘扩容</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/03/28/linux虚拟机磁盘扩容/">展开全文 >></a>
         </p>
       
 
@@ -1437,7 +1414,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

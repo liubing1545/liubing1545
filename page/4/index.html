@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html>
-<head>
+<head><meta name="generator" content="Hexo 3.8.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://liubing.com">
   <title>Bad Seeds</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -33,7 +33,7 @@
   
 
 </head>
-
+</html>
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -156,7 +156,111 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-搭建gitbucket的docker环境" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-linux虚拟机磁盘扩容" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/28/linux虚拟机磁盘扩容/">linux虚拟机磁盘扩容</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/28/linux虚拟机磁盘扩容/" class="archive-article-date">
+  	<time datetime="2017-03-28T10:04:05.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="问题点"><a href="#问题点" class="headerlink" title="问题点"></a>问题点</h3><p>安装了centos7的虚拟机，yum update时报错空间不足 <strong>No space left on device</strong>。</p>
+<h3 id="VBoxManage-modifyhd"><a href="#VBoxManage-modifyhd" class="headerlink" title="VBoxManage modifyhd"></a>VBoxManage modifyhd</h3><p>在宿主机上的安装virtualBox的根目录执行resize命令进行扩容:    </p>
+<pre><code>C:\Program Files\Oracle\VirtualBox&gt;VBoxManage modifyhd E:\dockerVM\dockerVM.vdi --resize 35000
+</code></pre><h3 id="CentOS的LVM管理"><a href="#CentOS的LVM管理" class="headerlink" title="CentOS的LVM管理"></a>CentOS的LVM管理</h3><p>查看磁盘状况</p>
+<pre><code>$ fdisk -l /dev/sda
+</code></pre><p>将空余磁盘创建为SDA3</p>
+<pre><code>$ fdisk /dev/sda
+n {new partition}
+p {primary partition}
+3 {partition number}
+
+t {change partition id}
+3 {partition number}
+8e {linux LVM partition}
+w
+</code></pre><p>重启虚拟机</p>
+<pre><code>$reboot
+</code></pre><p>查看当前Volume group</p>
+<pre><code>$ vgdisplay
+</code></pre><p>创建/dev/sda3，根据VG Name:[centos]，扩展LVM的逻辑卷</p>
+<pre><code>$ lvscan
+$ pvcreate /dev/sda3
+$ vgextend /dev/centos/root /dev/sda3
+</code></pre><p>调整逻辑卷文件系统的大小</p>
+<pre><code>$ xfs_growfs /dev/centos/root
+$df -h
+</code></pre><p>OK了！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">linux</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">磁盘扩容</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/28/linux虚拟机磁盘扩容/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-搭建gitbucket的docker环境" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -268,7 +372,7 @@ $ git push origin master
 
 
   
-    <article id="post-git删除tag" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-git删除tag" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -349,7 +453,7 @@ git push origin :refs/tags/tag_name
 
 
   
-    <article id="post-git撤销merge操作" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-git撤销merge操作" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -427,7 +531,7 @@ git push origin :refs/tags/tag_name
 
 
   
-    <article id="post-跨平台开发环境集中管理化之vagrant" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-跨平台开发环境集中管理化之vagrant" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -541,7 +645,7 @@ $ vagrant destroy  # 销毁
 
 
   
-    <article id="post-flask-migrate数据库迁移" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-flask-migrate数据库迁移" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -642,7 +746,7 @@ if __name__ == &apos;__main__&apos;:
 
 
   
-    <article id="post-认识javascript" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-认识javascript" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -858,7 +962,7 @@ alert(sum(12,15,19,21,51));
 
 
   
-    <article id="post-react-native与webapi交互" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-react-native与webapi交互" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -959,7 +1063,7 @@ alert(sum(12,15,19,21,51));
 
 
   
-    <article id="post-curl测试restful服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-curl测试restful服务" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1044,7 +1148,7 @@ alert(sum(12,15,19,21,51));
 
 
   
-    <article id="post-centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1195,100 +1299,6 @@ $ supervisorctl update #重启配置文件修改过的进程
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2016/07/18/centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-react-native初体验" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/07/react-native初体验/">react native初体验</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/07/react-native初体验/" class="archive-article-date">
-  	<time datetime="2016-07-07T06:21:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>今天想体验一下react native</p>
-<pre><code>$ brew install node
-$ brew install watchman
-$ brew install flow
-$ sudo npm install -g react-native-cli
-</code></pre><p>结果报错如下</p>
-<pre><code>$ network getaddrinfo ENOTFOUND registry.npmjs.org registry.npmjs.org:443
-</code></pre><p>给npm设置proxy翻墙安装就成功了。</p>
-<pre><code>$ npm config set proxy http://address:8080
-</code></pre><p>初始化一个project</p>
-<pre><code>$ react-native init HelloWorld
-</code></pre><p>成功后，新new的project里，会建立好ios和android的初始工程。<br>运行IOS应用程序：</p>
-<pre><code>$ react-native run-ios
-</code></pre><p>运行Android应用程序：</p>
-<pre><code>$ react-native run-android
-</code></pre><p>IOS环境配置很快啊，只要网络没有问题，就很快可以run成功。<br>Android环境配了三天啊。。。各种坑，各种查资料，还好最后也run好了。</p>
-<p>开始实战吧。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">react native</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">npmjs.org:443</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/07/react-native初体验/">展开全文 >></a>
         </p>
       
 
@@ -1727,7 +1737,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
