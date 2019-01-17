@@ -156,6 +156,82 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/28/YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/">YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1</a>
+    </h1>
+  
+
+        
+        <a href="/2017/03/28/YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/" class="archive-article-date">
+  	<time datetime="2017-03-28T11:35:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-03-28</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在hexo generate时，报错:</p>
+<pre><code>YAMLException: can not read a block mapping entry; a multiline key may not be an implicit key at line 4, column 1
+</code></pre><p>原因是在tags:hexo之间hexo之前要加一个空格！！！</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">hexo</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/03/28/YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-linux虚拟机磁盘扩容" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -1148,186 +1224,6 @@ alert(sum(12,15,19,21,51));
 
 
   
-    <article id="post-centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/18/centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx/">centOS下配置Virtualenv+Flask+Gunicorn+Supervisor+Nginx</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/18/centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx/" class="archive-article-date">
-  	<time datetime="2016-07-18T08:59:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-18</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在阿里云上部署flask环境。  </p>
-<h2 id="安装virtualenv并创建工程"><a href="#安装virtualenv并创建工程" class="headerlink" title="安装virtualenv并创建工程"></a>安装virtualenv并创建工程</h2><pre><code>$ pip install virtualenv
-$ virtualenv stooge
-$ cd stooge
-$ source bin/activate
-</code></pre><h2 id="安装flask并创建一个服务"><a href="#安装flask并创建一个服务" class="headerlink" title="安装flask并创建一个服务"></a>安装flask并创建一个服务</h2><pre><code>$ pip install flask
-$ touch runserver.py
-$ vim runserver.py
-$ chmod a+x runserver.py
-</code></pre><h3 id="runserver-py"><a href="#runserver-py" class="headerlink" title="runserver.py"></a>runserver.py</h3><pre><code>from flask import Flask
-
-app = Flask(__name__)
-
-@app.route(&apos;/&apos;)
-def hello_world():
-    return &apos;Hello World!&apos;
-
-if __name__ == &apos;__main__&apos;:
-    app.run()
-</code></pre><h2 id="安装Gunicorn"><a href="#安装Gunicorn" class="headerlink" title="安装Gunicorn"></a>安装Gunicorn</h2><p> Gunicorn是一个开源Python WSGI UNIX的HTTP服务器，默认是同步工作，支持Gevent，Eventlet异步。  </p>
-<pre><code>$ pip install gunicorn
-</code></pre><h3 id="gunicorn-conf"><a href="#gunicorn-conf" class="headerlink" title="gunicorn.conf"></a>gunicorn.conf</h3><p>在项目stooge根目录下, 配置gevent workers数处理并发，及绑定本地的端口号。 </p>
-<pre><code>#worker process number
-workers = 3
-#bind local port
-bind = &apos;127.0.0.1:8000&apos;
-</code></pre><h2 id="安装Supervisor"><a href="#安装Supervisor" class="headerlink" title="安装Supervisor"></a>安装Supervisor</h2><pre><code>$ sudo pip install supervisor
-</code></pre><p>supervisor是用python实现的一款进程管理工具。supervisor会帮你把管理的应用程序转成daemon程序，而且可以方便的通过命令开启，关闭，重启等操作。而且它管理的进程一旦崩溃会自动重启，这样就可以保证程序在执行中断后自我修复。  </p>
-<h3 id="supervisor配置"><a href="#supervisor配置" class="headerlink" title="supervisor配置"></a>supervisor配置</h3><p>supervisor包括两部分：   </p>
-<ul>
-<li>supervisord  (server端)</li>
-<li>supervisorctl  (client端)</li>
-</ul>
-<p>重定向配置文件  </p>
-<pre><code>$ sudo echo_supervisord_conf &gt; /etc/supervisord.conf
-</code></pre><p>虽然可以把所有的配置项都写到supervisord.conf文件里，但并不推荐这样做。而是通过include的方式把不同的程序组写到不同的配置文件里。  </p>
-<p>修改supervisord.conf的include section  </p>
-<pre><code>[include]
-files = /etc/supervisor/conf.d/*.conf
-</code></pre><p>添加program配置  </p>
-<p>新建目录/etc/supervisor/conf.d，并创建stooge.conf</p>
-<pre><code>$ touch stooge.conf
-$ vim stooge.conf
-[program:stooge]
-command=/home/$username/stooge/bin/gunicorn runserver:app -c /home/$username/stooge/gunicorn.conf
-directory=/home/$username/stooge
-user=$username
-autostart=true
-autorestart=true
-stdout_logfile=/home/$username/stooge/logs/gunicorn_supervisor.log
-</code></pre><p>这样的配置，通过[program:stooge]来告诉supervisord需要管理哪个进程。可以在client端(supervisorctl或web页面)显示，并对该进程start,restart,stop。</p>
-<h3 id="supervisorctl"><a href="#supervisorctl" class="headerlink" title="supervisorctl"></a>supervisorctl</h3><p>supervisorctl 是 supervisord 的一个命令行客户端工具，启动时需要指定配置文件。  </p>
-<pre><code>$ supervisord -c /etc/supervisord.conf
-</code></pre><p>shell 命令  </p>
-<pre><code>$ supervisorctl status #查看程序状态
-$ supervisorctl stop stooge
-$ supervisorctl start stooge
-$ supervisorctl restart stooge
-$ supervisorctl reread #读取有更新的配置文件
-$ supervisorctl update #重启配置文件修改过的进程
-</code></pre><p>在这里我们启动stooge  </p>
-<pre><code>$ supervisorctl start stooge
-</code></pre><h2 id="安装nginx"><a href="#安装nginx" class="headerlink" title="安装nginx"></a>安装nginx</h2><pre><code>$ yum install nginx
-</code></pre><p>centos7下的nginx1.6.3没有sites-available和sites-enabled子目录。但是有conf.d子目录。和配置supervisord一样，也是可以通过include的方式把不同的程序组写到不同的配置文件里。</p>
-<h3 id="nginx配置"><a href="#nginx配置" class="headerlink" title="nginx配置"></a>nginx配置</h3><p>确保/etc/nginx/nginx.conf中，http模块中引入conf.d子目录。  </p>
-<pre><code>include /etc/nginx/conf.d/*.conf
-</code></pre><p>在/etc/nginx/conf.d下创建stooge.conf  </p>
-<pre><code>server {
-    listen 80;
-    server_name xx.xx.xx.xx;
-
-    root /home/$username/stooge/;
-    access_log /home/$username/stooge/access.log;
-    error_log /home/$username/stooge/error.log;
-
-    location / {
-        proxy_set_header X-Forword-For $proxy_add_x_forwarded_for;
-        proxy_set_header Host $http_host;
-        proxy_redirect off;
-        if (!-f $request_filename) {
-            proxy_pass http://127.0.0.1:8000;
-            break;
-        }
-    }
-}
-</code></pre><p>重启nginx服务  </p>
-<pre><code>$sudo service nginx restart
-</code></pre><h2 id="配置firewalld"><a href="#配置firewalld" class="headerlink" title="配置firewalld"></a>配置firewalld</h2><p>安装完nginx后，80端口是没有开放的，外网无法访问。<br>增加http,https到/etc/firewalld/zones/public.xml文件。  </p>
-<pre><code>&lt;service name=&quot;http&quot;/&gt;
-&lt;service name=&quot;https&quot;/&gt;
-</code></pre><h2 id="访问helloworld服务"><a href="#访问helloworld服务" class="headerlink" title="访问helloworld服务"></a>访问helloworld服务</h2><p>外网访问ip，显示helloworld了！</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">centOS</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Virtualenv</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">flask</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">Gunicorn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Supervisor</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/18/centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
@@ -1342,7 +1238,7 @@ $ supervisorctl update #重启配置文件修改过的进程
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 liubing
+    		&copy; 2019 liubing
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1658,6 +1554,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">上下文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aws</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">梯子</a>
               </li>
              
               <li class="article-tag-list-item">

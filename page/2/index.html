@@ -156,6 +156,95 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-为Jupyter Notebook添加目录" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/04/24/为Jupyter Notebook添加目录/">为Jupyter Notebook添加目录</a>
+    </h1>
+  
+
+        
+        <a href="/2018/04/24/为Jupyter Notebook添加目录/" class="archive-article-date">
+  	<time datetime="2018-04-24T03:45:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-04-24</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p> 为Jupyter Notebook生成目录，需要安装插件Jupyter notebook extensions：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span> conda install -c conda-forge jupyter_contrib_nbextensions</span><br></pre></td></tr></table></figure>
+<p>重启jupyter notebook，可以将代码中插入的markdown文字，采集成左侧目录。并可根据需求进行设置。</p>
+<p><img src="http://obksgg9lx.bkt.clouddn.com/notebook-extension.png" alt="notebook-extension"></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">python</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">jupyter notebook</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ai</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">keras</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/04/24/为Jupyter Notebook添加目录/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-利用AppVeyor做GithubIO的CI" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
   <div class="article-inner">
     
@@ -971,93 +1060,6 @@
 
 
   
-    <article id="post-docker-compose的使用" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/07/27/docker-compose的使用/">docker-compose的使用</a>
-    </h1>
-  
-
-        
-        <a href="/2017/07/27/docker-compose的使用/" class="archive-article-date">
-  	<time datetime="2017-07-27T04:09:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-07-27</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>docker compose是一个用来定义和运行复杂应用的docker工具。使用compose，你可以在一个文件中定义一个多容器应用，然后使用一条命令来启动应用。    </p>
-<h2 id="下载docker-compose"><a href="#下载docker-compose" class="headerlink" title="下载docker-compose"></a>下载docker-compose</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -L https://github.com/docker/compose/releases/download/1.3.1/docker-compose-`uname -s`-`uname -m` &gt; /usr/local/bin/docker-compose</span><br></pre></td></tr></table></figure>
-<h2 id="创建应用目录"><a href="#创建应用目录" class="headerlink" title="创建应用目录"></a>创建应用目录</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mkdir compose-gitbucket</span><br><span class="line">touch docker-compose.yml</span><br></pre></td></tr></table></figure>
-<h2 id="docker-compose-yml配置文件"><a href="#docker-compose-yml配置文件" class="headerlink" title="docker-compose.yml配置文件"></a>docker-compose.yml配置文件</h2><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">gitbucket:</span></span><br><span class="line"><span class="attr">  image:</span> <span class="string">f99aq8ove/gitbucket</span></span><br><span class="line"><span class="attr">  volumes:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">./gitbucket:/gitbucket</span></span><br><span class="line"><span class="attr">  ports:</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"8080:8080"</span></span><br><span class="line"><span class="bullet">    -</span> <span class="string">"29418:29418"</span></span><br><span class="line"><span class="attr">  restart:</span> <span class="string">always</span></span><br></pre></td></tr></table></figure>
-<h2 id="docker-compose命令"><a href="#docker-compose命令" class="headerlink" title="docker-compose命令"></a>docker-compose命令</h2><blockquote>
-<p>build 构建或重建服务<br>help 命令帮助<br>kill 杀掉容器<br>logs 显示容器的输出内容<br>port 打印绑定的开放端口<br>ps 显示容器<br>pull 拉取服务镜像<br>restart 重启服务<br>rm 删除停止的容器<br>run 运行一个一次性命令<br>scale 设置服务的容器数目<br>start 开启服务<br>stop 停止服务<br>up 创建并启动容器    </p>
-</blockquote>
-<p>一般up之后，又改写了yml配置文件，则需要rm掉旧的容器，再up。</p>
-<h2 id="后台启动"><a href="#后台启动" class="headerlink" title="后台启动"></a>后台启动</h2><p>在应用目录下启动</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker-compose up -d</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">docker</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">docker-compose</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/07/27/docker-compose的使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1072,7 +1074,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2018 liubing
+    		&copy; 2019 liubing
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -1388,6 +1390,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">上下文</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">aws</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">梯子</a>
               </li>
              
               <li class="article-tag-list-item">
