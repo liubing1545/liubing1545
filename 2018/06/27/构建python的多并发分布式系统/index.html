@@ -9,14 +9,14 @@
   <title>构建python的多并发分布式系统 | Bad Seeds</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="IO密集型的应对我们一直致力于采用flask（纯python编写的轻量级web框架）来构建快速开发的微服务应用，并将其应用于工作中项目中。部署时，采用Gunicorn或者uWSGI作为http服务器，因其支持gevent和monkey_patch，立刻就能使同步的web框架获得数倍的性能提升。（*注 gevent对标准I/O函数做了monkey_patch，把它们变成了异步。并且gevent有gr">
-<meta name="keywords" content="python,celery,多并发,multiprocessing">
+<meta name="keywords" content="python,多并发,celery,multiprocessing">
 <meta property="og:type" content="article">
 <meta property="og:title" content="构建python的多并发分布式系统">
 <meta property="og:url" content="http://liubing.com/2018/06/27/构建python的多并发分布式系统/index.html">
 <meta property="og:site_name" content="Bad Seeds">
 <meta property="og:description" content="IO密集型的应对我们一直致力于采用flask（纯python编写的轻量级web框架）来构建快速开发的微服务应用，并将其应用于工作中项目中。部署时，采用Gunicorn或者uWSGI作为http服务器，因其支持gevent和monkey_patch，立刻就能使同步的web框架获得数倍的性能提升。（*注 gevent对标准I/O函数做了monkey_patch，把它们变成了异步。并且gevent有gr">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-01-17T06:29:29.051Z">
+<meta property="og:updated_time" content="2019-05-28T11:16:19.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="构建python的多并发分布式系统">
 <meta name="twitter:description" content="IO密集型的应对我们一直致力于采用flask（纯python编写的轻量级web框架）来构建快速开发的微服务应用，并将其应用于工作中项目中。部署时，采用Gunicorn或者uWSGI作为http服务器，因其支持gevent和monkey_patch，立刻就能使同步的web框架获得数倍的性能提升。（*注 gevent对标准I/O函数做了monkey_patch，把它们变成了异步。并且gevent有gr">
@@ -159,7 +159,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-构建python的多并发分布式系统" class="article article-type-post " itemscope="" itemprop="blogPost">
+            <article id="post-构建python的多并发分布式系统" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -219,11 +219,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">celery</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多并发</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多并发</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">celery</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -678,19 +678,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">celery</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gevent</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">celery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -702,15 +702,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">dezalgo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -723,6 +731,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keras</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -739,14 +755,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">requests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
             
             <div class="clearfix"></div>

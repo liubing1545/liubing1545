@@ -156,7 +156,92 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-curl测试restful服务" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/19/curl测试restful服务/">curl测试restful服务</a>
+    </h1>
+  
+
+        
+        <a href="/2016/07/19/curl测试restful服务/" class="archive-article-date">
+  	<time datetime="2016-07-19T08:00:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-19</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>利用curl，可以很方便的测试restful服务，发送HTTP GET，POST，PUT，DELETE请求。也可以改变HTTP header来指定特别条件。</p>
+<h3 id="curl参数"><a href="#curl参数" class="headerlink" title="curl参数"></a>curl参数</h3><blockquote>
+<p>-X/–request [GET|POST|PUT|DELETE|…]  <mark>指定http request方式</mark><br>-H/–header                             <mark>设定request请求的header</mark><br>-i/–include                            <mark>显示response响应的header</mark><br>-d/–data                               <mark>设定request的参数</mark><br>-v/–verbose                            <mark>输出更多的信息</mark><br>-u/–user                               <mark>使用者账号，密码</mark><br>-b/–cookie                             <mark>cookie</mark></p>
+</blockquote>
+<h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><pre><code>$ curl -i http://localhost:5000/rest/api/v1.0/tasks
+</code></pre><h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><pre><code>$ curl -i -H &quot;Content-Type: application/json&quot; -X POST -d &apos;{&quot;title&quot;:&quot;learn python&quot;}&apos; http://localhost:5000/rest/api/v1.0/tasks  
+</code></pre><h3 id="PUT"><a href="#PUT" class="headerlink" title="PUT"></a>PUT</h3><pre><code>$ curl -i -H &quot;Content-Type: application/json&quot; -X PUT -d &apos;{&quot;title&quot;:&quot;learn nodejs&quot;}&apos; http://localhost:5000/rest/api/v1.0/tasks/2
+</code></pre><h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><pre><code>$ curl -i -X DELETE http://localhost:5000/rest/api/v1.0/tasks/1
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">curl</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">restful</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2016/07/19/curl测试restful服务/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-centOS下配置Virtualenv-Flask-Gunicorn-Supervisor-Nginx" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -336,7 +421,7 @@ $ supervisorctl update #重启配置文件修改过的进程
 
 
   
-    <article id="post-react-native初体验" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-react-native初体验" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -430,7 +515,7 @@ $ sudo npm install -g react-native-cli
 
 
   
-    <article id="post-js七牛上传实践" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-js七牛上传实践" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -518,7 +603,7 @@ $ sudo npm install -g react-native-cli
 
 
   
-    <article id="post-shell反向删除文件" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-shell反向删除文件" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -598,7 +683,7 @@ $ rm -rf !(filename)
 
 
   
-    <article id="post-flask-exthook-ExtDeprecationWarning警告的消除" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-flask-exthook-ExtDeprecationWarning警告的消除" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -690,7 +775,7 @@ $ rm -rf !(filename)
 
 
   
-    <article id="post-mac下批量替换文本" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-mac下批量替换文本" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -777,7 +862,7 @@ $ rm -rf !(filename)
 
 
   
-    <article id="post-pip-freeze" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-pip-freeze" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -854,7 +939,7 @@ $ rm -rf !(filename)
 
 
   
-    <article id="post-使用virtualenv" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-使用virtualenv" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -933,7 +1018,7 @@ $ rm -rf !(filename)
 
 
   
-    <article id="testhexo-mac下搭建hexo至github" class="article article-type-testhexo  article-index" itemscope="" itemprop="blogPost">
+    <article id="testhexo-mac下搭建hexo至github" class="article article-type-testhexo  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -1353,19 +1438,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">celery</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gevent</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">celery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1377,15 +1462,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">dezalgo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1398,6 +1491,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keras</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1414,14 +1515,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">requests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
             
             <div class="clearfix"></div>

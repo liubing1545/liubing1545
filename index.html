@@ -156,7 +156,134 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-aws爬梯子" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-hadoop+spark分布式环境搭建" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/27/hadoop+spark分布式环境搭建/">hadoop+spark分布式环境搭建</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/27/hadoop+spark分布式环境搭建/" class="archive-article-date">
+  	<time datetime="2019-05-27T10:50:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-27</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Hadoop整体框架"><a href="#Hadoop整体框架" class="headerlink" title="Hadoop整体框架"></a>Hadoop整体框架</h2><p>Hadoop由HDFS、MapReduce、HBase、Hive和ZooKeeper等成员组成，其中最基础最重要的两种组成元素为底层用于存储集群中所有存储节点文件的文件系统HDFS（Hadoop Distributed File System）和上层用来执行MapReduce程序的MapReduce引擎。</p>
+<h3 id="HDFS"><a href="#HDFS" class="headerlink" title="HDFS"></a>HDFS</h3><p>HDFS架构采用主从架构（master/slave）。一个典型的HDFS集群包含一个NameNode节点和多个DataNode节点。NameNode节点负责整个HDFS文件系统中的文件的元数据保管和管理，集群中通常只有一台机器上运行NameNode实例，DataNode节点保存文件中的数据，集群中的机器分别运行一个DataNode实例。在HDFS中，NameNode节点被称为名称节点，DataNode节点被称为数据节点。DataNode节点通过心跳机制与NameNode节点进行定时的通信。</p>
+<h3 id="Map-Reduce"><a href="#Map-Reduce" class="headerlink" title="Map/Reduce"></a>Map/Reduce</h3><p>MapReduce是一种编程模型，用于大规模数据集的并行运算。Map（映射）和Reduce（化简），采用分而治之思想，先把任务分发到集群多个节点上，并行计算，然后再把计算结果合并，从而得到最终计算结果。多节点计算，所涉及的任务调度、负载均衡、容错处理等，都由MapReduce框架完成，不需要编程人员关心这些内容。</p>
+<h2 id="环境准备"><a href="#环境准备" class="headerlink" title="环境准备"></a>环境准备</h2><p>准备了3台CentOS 6.10 64bit云服务器，1台做master NameNode主节点，2台做DataNode节点。</p>
+<h3 id="修改hosts文件"><a href="#修改hosts文件" class="headerlink" title="修改hosts文件"></a>修改hosts文件</h3><p>在3台服务器上的/etc/hosts，追加以下配置：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">192.168.0.189 master worker0 namenode</span><br><span class="line">192.168.0.233 worker1 datanode1</span><br><span class="line">192.168.0.117 worker2 datanode2</span><br></pre></td></tr></table></figure></p>
+<p>统一hosts文件，可以让主机通过host名字来识别彼此。<br><strong><label style="color:red">ip为内网ip，不能配公网ip，不然hadoop启动异常。9000端口未出现在监听中</label></strong></p>
+<h3 id="ssh互信-免密登录"><a href="#ssh互信-免密登录" class="headerlink" title="ssh互信(免密登录)"></a>ssh互信(免密登录)</h3><p>在master节点执行以下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -P '' #生成公钥</span><br><span class="line">scp /root/.ssh/id_rsa.pub root@worker1:/root/.ssh/id_rsa.pub.master #从master节点拷贝id_rsa.pub到worker主机上,并且改名为id_rsa.pub.master</span><br><span class="line">scp /root/.ssh/id_rsa.pub root@worker2:/root/.ssh/id_rsa.pub.master</span><br><span class="line">cat /root/.ssh/id_rsa.pub &gt;&gt; /root/.ssh/authorized_keys</span><br></pre></td></tr></table></figure></p>
+<p>在node节点执行以下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /root/.ssh/id_rsa.pub.master &gt;&gt; /root/.ssh/authorized_keys</span><br></pre></td></tr></table></figure></p>
+<h2 id="下载工具"><a href="#下载工具" class="headerlink" title="下载工具"></a>下载工具</h2><ul>
+<li>Java 1.8.0_211</li>
+<li>Hadoop 3.1.2</li>
+<li>Spark 2.4.3</li>
+<li>Scala 2.11.12</li>
+</ul>
+<h3 id="Java安装"><a href="#Java安装" class="headerlink" title="Java安装"></a>Java安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u112-b15/jdk-8u112-linux-x64.rpm</span><br><span class="line">rpm ivh jdk-8u112-linux-x64.rpm</span><br></pre></td></tr></table></figure>
+<h3 id="Hadoop安装"><a href="#Hadoop安装" class="headerlink" title="Hadoop安装"></a>Hadoop安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirror.bit.edu.cn/apache/hadoop/common/hadoop-3.1.2/hadoop-3.1.2.tar.gz</span><br><span class="line">tar -xvf hadoop-3.1.2.tar.gz</span><br><span class="line">mv hadoop-3.1.2 /opt</span><br></pre></td></tr></table></figure>
+<h3 id="Spark安装"><a href="#Spark安装" class="headerlink" title="Spark安装"></a>Spark安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget http://mirrors.tuna.tsinghua.edu.cn/apache/spark/spark-2.4.3/spark-2.4.3-bin-hadoop2.7.tgz</span><br><span class="line">tar -xvf spark-2.4.3-bin-hadoop2.7.tgz</span><br><span class="line">mv spark-2.4.3-bin-hadoop2.7 /opt</span><br></pre></td></tr></table></figure>
+<h3 id="Scala安装"><a href="#Scala安装" class="headerlink" title="Scala安装"></a>Scala安装</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">wget -O "scala-2.12.8.rpm" "https://downloads.lightbend.com/scala/2.12.8/scala-2.12.8.rpm"</span><br><span class="line">rpm ivh scala-2.12.8.rpm</span><br></pre></td></tr></table></figure>
+<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>配置</p>
+<h3 id="设定环境变量"><a href="#设定环境变量" class="headerlink" title="设定环境变量"></a>设定环境变量</h3><p>在/etc/profile中添加<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>java home</span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_211-amd64/</span><br><span class="line"><span class="meta">#</span>scala home</span><br><span class="line">export SCALA_HOME=/usr/share/scala</span><br><span class="line"><span class="meta">#</span>hadoop enviroment</span><br><span class="line">export HADOOP_HOME=/opt/hadoop-3.1.2/</span><br><span class="line">export PATH="$HADOOP_HOME/bin:$HADOOP_HOME/sbin:$PATH"</span><br><span class="line">export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop</span><br><span class="line">export YARN_CONF_DIR=$HADOOP_HOME/etc/hadoop</span><br><span class="line"><span class="meta">#</span>spark enviroment</span><br><span class="line">export SPARK_HOME=/opt/spark-2.4.3-bin-hadoop2.7/</span><br><span class="line">export PATH="$SPARK_HOME/bin:$PATH"</span><br></pre></td></tr></table></figure></p>
+<p>然后<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">source /etc/profile</span><br></pre></td></tr></table></figure></p>
+<h3 id="配置Hadoop"><a href="#配置Hadoop" class="headerlink" title="配置Hadoop"></a>配置Hadoop</h3><p>在<strong>$HADOOP_HOME/etc/hadoop/hadoop-env.sh</strong>中配置如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_211-amd64/</span><br></pre></td></tr></table></figure></p>
+<p>在<strong>$HADOOP_HOME/etc/hadoop/workers</strong>中配置如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">worker1</span><br><span class="line">worker2</span><br></pre></td></tr></table></figure></p>
+<p>在<strong>$HADOOP_HOME/etc/hadoop/core-site.xml</strong>中配置如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;hdfs://master:9000&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">         &lt;name&gt;io.file.buffer.size&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;131072&lt;/value&gt;</span><br><span class="line">       &lt;/property&gt;</span><br><span class="line">        &lt;property&gt;</span><br><span class="line">                &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">                &lt;value&gt;/opt/hadoop-3.1.2/tmp&lt;/value&gt;</span><br><span class="line">        &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在<strong>$HADOOP_HOME/etc/hadoop/hdfs-site.xml</strong>中配置如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">      &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;master:50090&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">      &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;2&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">      &lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;file:/opt/hadoop-3.1.2/hdfs/name&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">    &lt;property&gt;</span><br><span class="line">      &lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;file:/opt/hadoop-3.1.2/hdfs/data&lt;/value&gt;</span><br><span class="line">    &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp mapred-site.xml.template mapred-site.xml</span><br></pre></td></tr></table></figure>
+<p>在<strong>$HADOOP_HOME/etc/hadoop/mapred-site.xml</strong>中配置如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">&lt;configuration&gt;</span><br><span class="line"> &lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">    &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">          &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;master:10020&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">          &lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;master:19888&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure></p>
+<p>在<strong>$HADOOP_HOME/etc/hadoop/yarn-site.xml</strong>中配置如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- Site specific YARN configuration properties --&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">          &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">           &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">           &lt;value&gt;master:8032&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">          &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</span><br><span class="line">          &lt;value&gt;master:8030&lt;/value&gt;</span><br><span class="line">      &lt;/property&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;master:8031&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;master:8033&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br><span class="line">     &lt;property&gt;</span><br><span class="line">         &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">         &lt;value&gt;master:8088&lt;/value&gt;</span><br><span class="line">     &lt;/property&gt;</span><br></pre></td></tr></table></figure></p>
+<p>格式化<strong>namenode</strong><br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure></p>
+<p><strong><label style="color:red">若多次格式化namenode，需先清空hadoop/tmp下文件，再格式化</label></strong></p>
+<h3 id="配置Spark"><a href="#配置Spark" class="headerlink" title="配置Spark"></a>配置Spark</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp spark-env.sh.template spark-env.sh</span><br></pre></td></tr></table></figure>
+<p>在<strong>$SPARK_HOME/conf/spark-env.sh</strong>中配置如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">export SCALA_HOME=/usr/share/scala</span><br><span class="line">export JAVA_HOME=/usr/java/jdk1.8.0_211-amd64/</span><br><span class="line">export SPARK_MASTER_IP=master</span><br><span class="line">export SPARK_WORKER_MEMORY=1g</span><br><span class="line">export HADOOP_CONF_DIR=/opt/hadoop-3.1.2/etc/hadoop</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cp slaves.template slaves</span><br></pre></td></tr></table></figure>
+<p>在<strong>$SPARK_HOME/conf/slaves</strong>文件中配置如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">master</span><br><span class="line">worker1</span><br><span class="line">worker2</span><br></pre></td></tr></table></figure></p>
+<h2 id="启动-关闭集群"><a href="#启动-关闭集群" class="headerlink" title="启动/关闭集群"></a>启动/关闭集群</h2><p>启动脚本start-cluster.sh如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">echo -e "\033[31m ========Start The Cluster======== \033[0m"</span><br><span class="line">echo -e "\033[31m Starting Hadoop Now !!! \033[0m"</span><br><span class="line">/opt/hadoop-3.1.2/sbin/start-all.sh</span><br><span class="line">echo -e "\033[31m Starting Spark Now !!! \033[0m"</span><br><span class="line">/opt/spark-2.4.3-bin-hadoop2.7/sbin/start-all.sh</span><br><span class="line">echo -e "\033[31m The Result Of The Command \"jps\" :  \033[0m"</span><br><span class="line">jps</span><br><span class="line">echo -e "\033[31m ========END======== \033[0m"</span><br></pre></td></tr></table></figure></p>
+<p>关闭脚本stop-cluster.sh如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span>!/bin/bash</span><br><span class="line">echo -e "\033[31m ===== Stoping The Cluster ====== \033[0m"</span><br><span class="line">echo -e "\033[31m Stoping Spark Now !!! \033[0m"</span><br><span class="line">/opt/spark-2.4.3-bin-hadoop2.7/sbin/stop-all.sh</span><br><span class="line">echo -e "\033[31m Stopting Hadoop Now !!! \033[0m"</span><br><span class="line">/opt/hadoop-3.1.2/sbin/stop-all.sh</span><br><span class="line">echo -e "\033[31m The Result Of The Command \"jps\" :  \033[0m"</span><br><span class="line">jps</span><br><span class="line">echo -e "\033[31m ======END======== \033[0m"</span><br></pre></td></tr></table></figure></p>
+<h3 id="JPS查看进程"><a href="#JPS查看进程" class="headerlink" title="JPS查看进程"></a>JPS查看进程</h3><p>master节点，jps查看进程信息如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">20069 Jps</span><br><span class="line">8118 NameNode</span><br><span class="line">9096 Worker</span><br><span class="line">8392 SecondaryNameNode</span><br><span class="line">9003 Master</span><br><span class="line">8655 ResourceManager</span><br></pre></td></tr></table></figure></p>
+<p>node节点，jps查看进程信息如下<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">4210 DataNode</span><br><span class="line">7362 Jps</span><br><span class="line">4328 NodeManager</span><br></pre></td></tr></table></figure></p>
+<h2 id="问题总结"><a href="#问题总结" class="headerlink" title="问题总结"></a>问题总结</h2><h3 id="could-only-be-written-to-0-of-the-1-minReplication-nodes"><a href="#could-only-be-written-to-0-of-the-1-minReplication-nodes" class="headerlink" title="could only be written to 0 of the 1 minReplication nodes."></a>could only be written to 0 of the 1 minReplication nodes.</h3><p>这个问题是由于使用hadoop namenode -format 格式化多次，导致spaceID不一致造成的，解决方法如下：<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bash stop-cluster.sh</span><br><span class="line">rm -rf /tmp/*</span><br><span class="line">rm -rf /opt/hadoop-3.1.2/tmp/*</span><br><span class="line">hadoop namenode -format</span><br><span class="line">bash start-cluster.sh</span><br></pre></td></tr></table></figure></p>
+<h3 id="ipc-Client-Retrying-connect-to-server-localhost-127-0-0-1"><a href="#ipc-Client-Retrying-connect-to-server-localhost-127-0-0-1" class="headerlink" title="ipc.Client: Retrying connect to server: localhost/127.0.0.1"></a>ipc.Client: Retrying connect to server: localhost/127.0.0.1</h3><p>配置logger为debugger模式<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">export HADOOP_ROOT_LOGGER=DEBUG,console</span><br></pre></td></tr></table></figure></p>
+<p>查看具体报错信息</p>
+<h3 id="Unable-to-load-native-hadoop-library"><a href="#Unable-to-load-native-hadoop-library" class="headerlink" title="Unable to load native-hadoop library"></a>Unable to load native-hadoop library</h3><p>去hadoop文件夹里找到libhadoop文件<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ldd libhadoop.so</span><br></pre></td></tr></table></figure></p>
+<h3 id="libc-so-6-version-GLIBC2-14-not-found"><a href="#libc-so-6-version-GLIBC2-14-not-found" class="headerlink" title="libc.so.6 version GLIBC2.14 not found"></a>libc.so.6 version GLIBC2.14 not found</h3><p>查看系统glibc版本<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">strings /lib64/libc.so.6 |grep GLIBC_</span><br></pre></td></tr></table></figure></p>
+<p>如果列表中系统支持的glibc的最高版本是GLIBC_2.12，则做升级<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">wget http://ftp.gnu.org/gnu/glibc/glibc-2.14.tar.gz</span><br><span class="line">tar zxf glibc-2.14.tar.gz</span><br><span class="line">cd glibc-2.14 &amp;&amp; mkdri build</span><br><span class="line">cd build &amp;&amp; ../configure --prefix=/opt/glibc-2.14</span><br><span class="line">make &amp;&amp; make install</span><br></pre></td></tr></table></figure></p>
+<p>安装成功之后<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rm -rf /lib64/libc.so.6</span><br><span class="line">ln -s /opt/glibc-2.14/lib/libc-2.14.so /lib64/libc.so.6</span><br><span class="line"><span class="meta">#</span> 如果出问题，执行下面</span><br><span class="line">LD_PRELOAD=/opt/glibc-2.14/lib/libc-2.14.so ln -s /opt/glibc-2.14/lib/libc-2.14.so /lib64/libc.so.6</span><br></pre></td></tr></table></figure></p>
+<h3 id="There-are-0-datanode-s-running-and-no-node-s-are-excluded-in-this-operation"><a href="#There-are-0-datanode-s-running-and-no-node-s-are-excluded-in-this-operation" class="headerlink" title="There are 0 datanode(s) running and no node(s) are excluded in this operation"></a>There are 0 datanode(s) running and no node(s) are excluded in this operation</h3><p>这个错误是node没有正常设置。其中有可能涉及两个原因：</p>
+<ul>
+<li>主机在/etc/hosts里配置的是公网ip，改成内网ip。</li>
+<li>hadoop在master和node中的配置保持一样。</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">hadoop</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">大数据</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/27/hadoop+spark分布式环境搭建/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-aws爬梯子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -233,7 +360,7 @@
 
 
   
-    <article id="post-区块链挖矿" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-区块链挖矿" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -313,7 +440,7 @@
 
 
   
-    <article id="post-区块链入门" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-区块链入门" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -408,7 +535,7 @@
 
 
   
-    <article id="post-构建python的多并发分布式系统" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-构建python的多并发分布式系统" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -447,11 +574,11 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">celery</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多并发</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">多并发</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">celery</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
@@ -495,7 +622,7 @@
 
 
   
-    <article id="post-npm Error! ENOENT no such file or directory .dezalgo.DELETE&#39;" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-npm Error! ENOENT no such file or directory .dezalgo.DELETE&#39;" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -574,7 +701,7 @@
 
 
   
-    <article id="post-multiprocessing的并行方式" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-multiprocessing的并行方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -671,7 +798,7 @@
 
 
   
-    <article id="post-gevent的异步方式" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-gevent的异步方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -758,7 +885,7 @@
 
 
   
-    <article id="post-tornado的异步方式" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-tornado的异步方式" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -854,7 +981,7 @@
 
 
   
-    <article id="post-刷票" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
+    <article id="post-刷票" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -905,96 +1032,6 @@
       
         <p class="article-more-link">
           <a class="article-more-a" href="/2018/05/18/刷票/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-celery介绍" class="article article-type-post  article-index" itemscope="" itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/10/celery介绍/">celery介绍</a>
-    </h1>
-  
-
-        
-        <a href="/2018/05/10/celery介绍/" class="archive-article-date">
-  	<time datetime="2018-05-10T06:47:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Celery架构设计"><a href="#Celery架构设计" class="headerlink" title="Celery架构设计"></a>Celery架构设计</h2><p>Celery是一个用python编写的分布式的任务调度模块，它有着简明的 API，并且有丰富的扩展性，适合用于构建分布式的 Web 服务。celery的架构包括三个部分：消息中间件（message broker），任务执行单元（worker）和任务执行结果的存储（task result store）。</p>
-<h4 id="消息中间件"><a href="#消息中间件" class="headerlink" title="消息中间件"></a>消息中间件</h4><p>celery本身不提供消息服务，但可以和第三方提供的消息中间件（<strong>RabbitMQ</strong>,<strong>Redis</strong>等）集成。</p>
-<h4 id="任务执行单元"><a href="#任务执行单元" class="headerlink" title="任务执行单元"></a>任务执行单元</h4><p>worker是celery提供的任务执行单元，worker并发的运行在分布式的系统节点中。</p>
-<h4 id="任务结果存储"><a href="#任务结果存储" class="headerlink" title="任务结果存储"></a>任务结果存储</h4><p>task result store用来存储worker执行的任务的结果，celery支持以不同方式存储任务的结果（<strong>AMQP</strong>,<strong>Redis</strong>,<strong>MongoDB</strong>）。</p>
-<p>另外，celery还支持不同的并发（<strong>Prefork</strong>,<strong>Eventlet</strong>,<strong>gevent</strong>,<strong>threads</strong>）和序列化的手段（<strong>pickle</strong>,<strong>json</strong>,<strong>yaml</strong>等）。</p>
-<h2 id="概图"><a href="#概图" class="headerlink" title="概图"></a>概图</h2><p><img src="http://obksgg9lx.bkt.clouddn.com/celery.png" alt="celery"></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install celery</span><br><span class="line">pip install redis</span><br></pre></td></tr></table></figure>
-<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><h4 id="消息中间件redis的配置-及任务结果存储"><a href="#消息中间件redis的配置-及任务结果存储" class="headerlink" title="消息中间件redis的配置,及任务结果存储"></a>消息中间件redis的配置,及任务结果存储</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CELERY_BROKER_URL = <span class="string">'redis://localhost:6379/0'</span></span><br><span class="line">CELERY_RESULT_BACKEND = <span class="string">'redis://localhost:6379/0'</span></span><br><span class="line"><span class="comment"># 使用 update设置多个celery的参数</span></span><br><span class="line">celery.conf.update(app.config)</span><br></pre></td></tr></table></figure>
-<h4 id="消费者task"><a href="#消费者task" class="headerlink" title="消费者task"></a>消费者task</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@celery.task(bind=True)</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">long_task</span><span class="params">(self)</span>:</span></span><br><span class="line">    <span class="comment"># 执行耗费资源的算法</span></span><br><span class="line">    algorithm.reset_data()</span><br><span class="line"></span><br><span class="line">    app = create_app(os.getenv(<span class="string">'FLASK_CONFIG'</span>) <span class="keyword">or</span> <span class="string">'default'</span>)</span><br><span class="line">    <span class="keyword">with</span> app.app_context():</span><br><span class="line">        front_data = algorithm.run_search(algorithm.TestData.requirement, algorithm.TestData.disabled_devices)</span><br><span class="line">        <span class="keyword">import</span> json</span><br><span class="line">        </span><br><span class="line">        data = json.dumps(front_data)</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">'current'</span>: <span class="number">100</span>, <span class="string">'total'</span>: <span class="number">100</span>, <span class="string">'status'</span>: <span class="string">'Task completed!'</span>, <span class="string">'result'</span>: data&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="通过task-apply-async将任务压入消息队列broker中"><a href="#通过task-apply-async将任务压入消息队列broker中" class="headerlink" title="通过task.apply_async将任务压入消息队列broker中"></a>通过task.apply_async将任务压入消息队列broker中</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@energy_island.route('/get_graph_data', methods=['POST'])</span></span><br><span class="line"><span class="meta">@login_required</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_graph_data</span><span class="params">()</span>:</span></span><br><span class="line">    id = request.values.get(<span class="string">'id'</span>)</span><br><span class="line">    print(id)</span><br><span class="line"></span><br><span class="line">    task = tasks.long_task.apply_async()</span><br><span class="line">    <span class="keyword">return</span> jsonify(&#123;&#125;), <span class="number">202</span>, &#123;<span class="string">'Location'</span>: url_for(<span class="string">'energy_island.taskstatus'</span>, task_id=task.id)&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="使用backend异步获取结果task-AsyncResult"><a href="#使用backend异步获取结果task-AsyncResult" class="headerlink" title="使用backend异步获取结果task.AsyncResult"></a>使用backend异步获取结果task.AsyncResult</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@energy_island.route('/status/&lt;task_id&gt;')</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">taskstatus</span><span class="params">(task_id)</span>:</span></span><br><span class="line">    task = tasks.long_task.AsyncResult(task_id)</span><br><span class="line">    <span class="keyword">if</span> task.state == <span class="string">'PENDING'</span>:</span><br><span class="line">        response = &#123;</span><br><span class="line">            <span class="string">'state'</span>: task.state,</span><br><span class="line">            <span class="string">'current'</span>: <span class="number">0</span>,</span><br><span class="line">            <span class="string">'total'</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">'status'</span>: <span class="string">'Pending...'</span></span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">elif</span> task.state != <span class="string">'FAILURE'</span>:</span><br><span class="line">        response = &#123;</span><br><span class="line">            <span class="string">'state'</span>: task.state,</span><br><span class="line">            <span class="string">'current'</span>: task.info.get(<span class="string">'current'</span>, <span class="number">0</span>),</span><br><span class="line">            <span class="string">'total'</span>: task.info.get(<span class="string">'total'</span>, <span class="number">1</span>),</span><br><span class="line">            <span class="string">'status'</span>: task.info.get(<span class="string">'status'</span>, <span class="string">' '</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> <span class="string">'result'</span> <span class="keyword">in</span> task.info:</span><br><span class="line">            response[<span class="string">'result'</span>] = task.info[<span class="string">'result'</span>]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        response = &#123;</span><br><span class="line">            <span class="string">'state'</span>: task.state,</span><br><span class="line">            <span class="string">'current'</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">'total'</span>: <span class="number">1</span>,</span><br><span class="line">            <span class="string">'status'</span>: str(task.info),</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">return</span> jsonify(response)</span><br></pre></td></tr></table></figure>
-<h4 id="生产者get消费者完成的状态"><a href="#生产者get消费者完成的状态" class="headerlink" title="生产者get消费者完成的状态"></a>生产者get消费者完成的状态</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> update_progress = <span class="function"><span class="keyword">function</span>(<span class="params">status_url</span>) </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// send GET request to status URL</span></span><br><span class="line">    $.getJSON(status_url, <span class="function"><span class="keyword">function</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">        <span class="comment">// update UI</span></span><br><span class="line">        percent = <span class="built_in">parseInt</span>(data[<span class="string">'current'</span>] * <span class="number">100</span> / data[<span class="string">'total'</span>]);</span><br><span class="line">        <span class="keyword">if</span> (data[<span class="string">'state'</span>] != <span class="string">'PENDING'</span> &amp;&amp; data[<span class="string">'state'</span>] != <span class="string">'PROGRESS'</span>) &#123;</span><br><span class="line">            <span class="keyword">if</span> (<span class="string">'result'</span> <span class="keyword">in</span> data) &#123;</span><br><span class="line"></span><br><span class="line">                setGraphDataRun(<span class="built_in">JSON</span>.parse(data[<span class="string">'result'</span>]), <span class="number">1</span>);</span><br><span class="line">                <span class="comment">// show result</span></span><br><span class="line">                alert(<span class="string">'result-liubing: '</span> + data[<span class="string">'result'</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> &#123;</span><br><span class="line">                alert(<span class="string">'state-liubing: '</span> + data[<span class="string">'state'</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="comment">// rerun in 2 seconds</span></span><br><span class="line">            setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">                update_progress(status_url);</span><br><span class="line">            &#125;, <span class="number">2000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="启动celery"><a href="#启动celery" class="headerlink" title="启动celery"></a>启动celery</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">celery -A app.celery worker -l info -P eventlet</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">celery</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">分布式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/05/10/celery介绍/">展开全文 >></a>
         </p>
       
 
@@ -1365,19 +1402,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">celery</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">gevent</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">celery</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">分布式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1389,15 +1426,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">hadoop</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">大数据</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">npm</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">dezalgo</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1410,6 +1455,14 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">keras</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1426,14 +1479,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">requests</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
             
             <div class="clearfix"></div>
