@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
@@ -17,7 +17,7 @@
 <meta property="og:description" content="七牛有免费的配额可以使用，在测试开发时，将图片，视频流等多种媒体文件可以上传到七牛上。   其次，七牛可以绕过搭载应用的server，手机端或者pc端可以直接上传下载媒体资源至七牛云。只是在上传时，需要先向应用server要求访问七牛的token，拿到这个token后直接与七牛交互。   最后，七牛云支持cdn加速，即使对成熟的应用来说，也是不错的选择。    下面讲解flask作为业务服务器，">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://developer.qiniu.com/article/developer/img/upload-with-callback.png">
-<meta property="og:updated_time" content="2019-05-28T11:16:19.316Z">
+<meta property="og:updated_time" content="2019-07-22T12:09:50.803Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="js七牛上传实践">
 <meta name="twitter:description" content="七牛有免费的配额可以使用，在测试开发时，将图片，视频流等多种媒体文件可以上传到七牛上。   其次，七牛可以绕过搭载应用的server，手机端或者pc端可以直接上传下载媒体资源至七牛云。只是在上传时，需要先向应用server要求访问七牛的token，拿到这个token后直接与七牛交互。   最后，七牛云支持cdn加速，即使对成熟的应用来说，也是不错的选择。    下面讲解flask作为业务服务器，">
@@ -681,14 +681,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">gevent</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">多并发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">celery</a>
               </li>
              
@@ -697,11 +689,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">multiprocessing</a>
+                <a href="javascript:void(0)" class="js-tag color2">gevent</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">并行</a>
+                <a href="javascript:void(0)" class="js-tag color4">多并发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">gitignore</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -713,7 +709,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
+                <a href="javascript:void(0)" class="js-tag color1">multiprocessing</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">并行</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -722,6 +722,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">dezalgo</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">tornado</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -737,19 +741,19 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">AppVeyor</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">github</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">区块链</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">智能合约</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -765,7 +769,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
