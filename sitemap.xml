@@ -2,20 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://liubing.com/2016/05/27/%E4%BD%BF%E7%94%A8virtualenv/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2017/11/04/%E5%85%B3%E4%BA%8Eandroid%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://liubing.com/2016/12/27/%E6%90%AD%E5%BB%BAgitbucket%E7%9A%84docker%E7%8E%AF%E5%A2%83/</loc>
     
     <lastmod>2021-07-02</lastmod>
@@ -38,20 +24,6 @@
   
   <url>
     <loc>http://liubing.com/2016/08/08/%E8%AE%A4%E8%AF%86javascript/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2018/04/24/%E5%88%A9%E7%94%A8AppVeyor%E5%81%9AGithubIO%E7%9A%84CI/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2018/05/18/%E5%88%B7%E7%A5%A8/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -86,27 +58,6 @@
   </url>
   
   <url>
-    <loc>http://liubing.com/2016/05/31/pip-freeze/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/08/08/react-native%E4%B8%8Ewebapi%E4%BA%A4%E4%BA%92/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/06/24/shell%E5%8F%8D%E5%90%91%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://liubing.com/2017/07/07/supervisor%E7%AE%A1%E7%90%86%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E7%A8%8B/</loc>
     
     <lastmod>2021-07-02</lastmod>
@@ -135,28 +86,14 @@
   </url>
   
   <url>
-    <loc>http://liubing.com/2016/07/07/react-native%E5%88%9D%E4%BD%93%E9%AA%8C/</loc>
+    <loc>http://liubing.com/2016/05/27/%E4%BD%BF%E7%94%A8virtualenv/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
   </url>
   
   <url>
-    <loc>http://liubing.com/2018/05/24/multiprocessing%E7%9A%84%E5%B9%B6%E8%A1%8C%E6%96%B9%E5%BC%8F/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2018/06/11/npm%20Error!%20ENOENT%20no%20such%20file%20or%20directory%20.dezalgo.DELETE'/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2020/05/22/nvm%E9%99%8D%E7%BA%A7node%E5%AE%89%E8%A3%85sqlite3/</loc>
+    <loc>http://liubing.com/2017/11/04/%E5%85%B3%E4%BA%8Eandroid%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -177,14 +114,21 @@
   </url>
   
   <url>
-    <loc>http://liubing.com/2016/11/23/git%E5%88%A0%E9%99%A4tag/</loc>
+    <loc>http://liubing.com/2018/04/24/%E5%88%A9%E7%94%A8AppVeyor%E5%81%9AGithubIO%E7%9A%84CI/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
   </url>
   
   <url>
-    <loc>http://liubing.com/2018/04/20/git%E5%88%A0%E9%99%A4%E6%89%80%E6%9C%89%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/</loc>
+    <loc>http://liubing.com/2018/05/18/%E5%88%B7%E7%A5%A8/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/06/24/shell%E5%8F%8D%E5%90%91%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -233,14 +177,21 @@
   </url>
   
   <url>
-    <loc>http://liubing.com/2018/05/23/gevent%E7%9A%84%E5%BC%82%E6%AD%A5%E6%96%B9%E5%BC%8F/</loc>
+    <loc>http://liubing.com/2016/05/31/pip-freeze/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
   </url>
   
   <url>
-    <loc>http://liubing.com/2019/07/22/gitignore%E6%9B%B4%E6%96%B0%E5%90%8E%EF%BC%8C%E5%88%A0%E9%99%A4%E6%9C%AA%E6%9D%A5%E4%B8%8D%E9%9C%80%E8%A6%81%E7%AE%A1%E6%8E%A7%E7%9A%84%E7%A8%8B%E5%BA%8F/</loc>
+    <loc>http://liubing.com/2016/08/08/react-native%E4%B8%8Ewebapi%E4%BA%A4%E4%BA%92/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/07/07/react-native%E5%88%9D%E4%BD%93%E9%AA%8C/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -254,14 +205,21 @@
   </url>
   
   <url>
-    <loc>http://liubing.com/2016/06/17/flask-exthook-ExtDeprecationWarning%E8%AD%A6%E5%91%8A%E7%9A%84%E6%B6%88%E9%99%A4/</loc>
+    <loc>http://liubing.com/2018/05/24/multiprocessing%E7%9A%84%E5%B9%B6%E8%A1%8C%E6%96%B9%E5%BC%8F/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
   </url>
   
   <url>
-    <loc>http://liubing.com/2016/08/11/flask-migrate%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB/</loc>
+    <loc>http://liubing.com/2018/06/11/npm%20Error!%20ENOENT%20no%20such%20file%20or%20directory%20.dezalgo.DELETE'/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2020/05/22/nvm%E9%99%8D%E7%BA%A7node%E5%AE%89%E8%A3%85sqlite3/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -276,13 +234,6 @@
   
   <url>
     <loc>http://liubing.com/2016/07/19/curl%E6%B5%8B%E8%AF%95restful%E6%9C%8D%E5%8A%A1/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/07/18/centOS%E4%B8%8B%E9%85%8D%E7%BD%AEVirtualenv-Flask-Gunicorn-Supervisor-Nginx/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -310,6 +261,48 @@
   </url>
   
   <url>
+    <loc>http://liubing.com/2016/06/17/flask-exthook-ExtDeprecationWarning%E8%AD%A6%E5%91%8A%E7%9A%84%E6%B6%88%E9%99%A4/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/11/23/git%E5%88%A0%E9%99%A4tag/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2018/04/20/git%E5%88%A0%E9%99%A4%E6%89%80%E6%9C%89%E6%8F%90%E4%BA%A4%E5%8E%86%E5%8F%B2%E8%AE%B0%E5%BD%95/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/08/11/flask-migrate%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%81%E7%A7%BB/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2018/05/23/gevent%E7%9A%84%E5%BC%82%E6%AD%A5%E6%96%B9%E5%BC%8F/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2019/07/22/gitignore%E6%9B%B4%E6%96%B0%E5%90%8E%EF%BC%8C%E5%88%A0%E9%99%A4%E6%9C%AA%E6%9D%A5%E4%B8%8D%E9%9C%80%E8%A6%81%E7%AE%A1%E6%8E%A7%E7%9A%84%E7%A8%8B%E5%BA%8F/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liubing.com/2017/08/29/anaconda%E5%AE%89%E8%A3%85tensorflow/</loc>
     
     <lastmod>2021-07-02</lastmod>
@@ -318,6 +311,41 @@
   
   <url>
     <loc>http://liubing.com/2017/03/28/YAMLException-can-not-read-a-block-mapping-entry-a-multiline-key-may-not-be-an-implicit-key-at-line-4-column-1/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/07/18/centOS%E4%B8%8B%E9%85%8D%E7%BD%AEVirtualenv-Flask-Gunicorn-Supervisor-Nginx/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2020/03/14/IPFS-Cluster%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2020/03/13/IPFS%E6%90%AD%E5%BB%BA(windows%E8%8A%82%E7%82%B9)/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2020/03/06/IPFS%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2020/05/23/MultiHash%E5%92%8CBase58/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -374,34 +402,6 @@
   
   <url>
     <loc>http://liubing.com/2020/03/14/IPFS-Cluster%E6%90%AD%E5%BB%BA(ubuntu)/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2020/03/14/IPFS-Cluster%E6%90%AD%E5%BB%BA/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2020/03/13/IPFS%E6%90%AD%E5%BB%BA(windows%E8%8A%82%E7%82%B9)/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2020/03/06/IPFS%E6%90%AD%E5%BB%BA/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2020/05/23/MultiHash%E5%92%8CBase58/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
