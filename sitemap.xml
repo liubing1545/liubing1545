@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://liubing.com/2017/11/04/%E5%85%B3%E4%BA%8Eandroid%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liubing.com/2016/12/27/%E6%90%AD%E5%BB%BAgitbucket%E7%9A%84docker%E7%8E%AF%E5%A2%83/</loc>
     
     <lastmod>2021-07-02</lastmod>
@@ -30,6 +37,20 @@
   </url>
   
   <url>
+    <loc>http://liubing.com/2018/04/24/%E5%88%A9%E7%94%A8AppVeyor%E5%81%9AGithubIO%E7%9A%84CI/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2018/05/18/%E5%88%B7%E7%A5%A8/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liubing.com/2018/10/13/%E5%8C%BA%E5%9D%97%E9%93%BE%E5%85%A5%E9%97%A8/</loc>
     
     <lastmod>2021-07-02</lastmod>
@@ -52,6 +73,41 @@
   
   <url>
     <loc>http://liubing.com/2018/06/27/%E6%9E%84%E5%BB%BApython%E7%9A%84%E5%A4%9A%E5%B9%B6%E5%8F%91%E5%88%86%E5%B8%83%E5%BC%8F%E7%B3%BB%E7%BB%9F/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2021/07/02/%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/05/22/mac%E4%B8%8B%E6%90%AD%E5%BB%BAhexo%E8%87%B3github/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/05/31/pip-freeze/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/08/08/react-native%E4%B8%8Ewebapi%E4%BA%A4%E4%BA%92/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/06/24/shell%E5%8F%8D%E5%90%91%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -93,112 +149,7 @@
   </url>
   
   <url>
-    <loc>http://liubing.com/2017/11/04/%E5%85%B3%E4%BA%8Eandroid%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%B7%AF%E5%BE%84/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2018/05/22/tornado%E7%9A%84%E5%BC%82%E6%AD%A5%E6%96%B9%E5%BC%8F/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2018/04/24/%E4%B8%BAJupyter%20Notebook%E6%B7%BB%E5%8A%A0%E7%9B%AE%E5%BD%95/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2018/04/24/%E5%88%A9%E7%94%A8AppVeyor%E5%81%9AGithubIO%E7%9A%84CI/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2018/05/18/%E5%88%B7%E7%A5%A8/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/06/24/shell%E5%8F%8D%E5%90%91%E5%88%A0%E9%99%A4%E6%96%87%E4%BB%B6/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2017/11/17/jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2docker%E5%BA%94%E7%94%A8/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/09/18/git%E6%92%A4%E9%94%80merge%E6%93%8D%E4%BD%9C/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/06/24/js%E4%B8%83%E7%89%9B%E4%B8%8A%E4%BC%A0%E5%AE%9E%E8%B7%B5/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/05/22/mac%E4%B8%8B%E6%90%AD%E5%BB%BAhexo%E8%87%B3github/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2017/03/28/linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/06/08/mac%E4%B8%8B%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E6%96%87%E6%9C%AC/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/05/31/pip-freeze/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2016/08/08/react-native%E4%B8%8Ewebapi%E4%BA%A4%E4%BA%92/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://liubing.com/2016/07/07/react-native%E5%88%9D%E4%BD%93%E9%AA%8C/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2019/05/27/hadoop+spark%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -226,35 +177,14 @@
   </url>
   
   <url>
-    <loc>http://liubing.com/2017/12/07/centos7%E5%AE%89%E8%A3%85postgresql/</loc>
+    <loc>http://liubing.com/2018/05/22/tornado%E7%9A%84%E5%BC%82%E6%AD%A5%E6%96%B9%E5%BC%8F/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
   </url>
   
   <url>
-    <loc>http://liubing.com/2016/07/19/curl%E6%B5%8B%E8%AF%95restful%E6%9C%8D%E5%8A%A1/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2017/07/27/docker-compose%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2017/07/24/docker%E5%88%9B%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2017/07/24/docker%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86/</loc>
+    <loc>http://liubing.com/2018/04/24/%E4%B8%BAJupyter%20Notebook%E6%B7%BB%E5%8A%A0%E7%9B%AE%E5%BD%95/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -289,6 +219,41 @@
   </url>
   
   <url>
+    <loc>http://liubing.com/2017/11/17/jenkins%E8%87%AA%E5%8A%A8%E9%83%A8%E7%BD%B2docker%E5%BA%94%E7%94%A8/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/09/18/git%E6%92%A4%E9%94%80merge%E6%93%8D%E4%BD%9C/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/06/24/js%E4%B8%83%E7%89%9B%E4%B8%8A%E4%BC%A0%E5%AE%9E%E8%B7%B5/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2017/03/28/linux%E8%99%9A%E6%8B%9F%E6%9C%BA%E7%A3%81%E7%9B%98%E6%89%A9%E5%AE%B9/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/06/08/mac%E4%B8%8B%E6%89%B9%E9%87%8F%E6%9B%BF%E6%8D%A2%E6%96%87%E6%9C%AC/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liubing.com/2018/05/23/gevent%E7%9A%84%E5%BC%82%E6%AD%A5%E6%96%B9%E5%BC%8F/</loc>
     
     <lastmod>2021-07-02</lastmod>
@@ -303,7 +268,70 @@
   </url>
   
   <url>
+    <loc>http://liubing.com/2019/05/27/hadoop+spark%E5%88%86%E5%B8%83%E5%BC%8F%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://liubing.com/2017/08/29/anaconda%E5%AE%89%E8%A3%85tensorflow/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2017/12/07/centos7%E5%AE%89%E8%A3%85postgresql/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/07/19/curl%E6%B5%8B%E8%AF%95restful%E6%9C%8D%E5%8A%A1/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2016/07/18/centOS%E4%B8%8B%E9%85%8D%E7%BD%AEVirtualenv-Flask-Gunicorn-Supervisor-Nginx/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2017/07/27/docker-compose%E7%9A%84%E4%BD%BF%E7%94%A8/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2017/07/24/docker%E5%88%9B%E5%BB%BA%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2017/07/24/docker%E8%AE%BE%E7%BD%AEhttp%E4%BB%A3%E7%90%86/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2019/01/17/aws%E7%88%AC%E6%A2%AF%E5%AD%90/</loc>
+    
+    <lastmod>2021-07-02</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://liubing.com/2018/05/10/celery%E4%BB%8B%E7%BB%8D/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -317,7 +345,7 @@
   </url>
   
   <url>
-    <loc>http://liubing.com/2016/07/18/centOS%E4%B8%8B%E9%85%8D%E7%BD%AEVirtualenv-Flask-Gunicorn-Supervisor-Nginx/</loc>
+    <loc>http://liubing.com/2020/03/14/IPFS-Cluster%E6%90%AD%E5%BB%BA(ubuntu)/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
@@ -373,20 +401,6 @@
   </url>
   
   <url>
-    <loc>http://liubing.com/2019/01/17/aws%E7%88%AC%E6%A2%AF%E5%AD%90/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2018/05/10/celery%E4%BB%8B%E7%BB%8D/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://liubing.com/2017/11/16/Docker-outside-of-Docker/</loc>
     
     <lastmod>2021-07-02</lastmod>
@@ -395,13 +409,6 @@
   
   <url>
     <loc>http://liubing.com/2020/03/25/IPFS-Cluster%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%9E%84%E5%BB%BA/</loc>
-    
-    <lastmod>2021-07-02</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://liubing.com/2020/03/14/IPFS-Cluster%E6%90%AD%E5%BB%BA(ubuntu)/</loc>
     
     <lastmod>2021-07-02</lastmod>
     
